@@ -1,20 +1,18 @@
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import React from "react";
-import {addPostActionCreator} from "../../../redux/profileReducer";
-import {updateNewPostTextActionCreator} from "../../../redux/profileReducer";
+
 
 const MyPosts = (props) => {
     let postsElements = props.posts.map(p => <Post message={p.message} likeCount={p.likeCount}/>);
 
-    let addPost = () => {
-        props.dispatch(addPostActionCreator())
+    let onAddPost = () => {
+        props.addPost();
     };
 
     let onPostChange = (e) => {
         let text = e.target.value;
-        let action = updateNewPostTextActionCreator(text);
-        props.dispatch(action);
+        props.updateNewPostText(text);
     };
 
 
@@ -26,7 +24,7 @@ const MyPosts = (props) => {
                     <textarea  placeholder={'type here'} onChange={onPostChange}  value={props.newPostText}/>
                 </div>
                 <div>
-                    <button onClick={addPost}>Add New</button>
+                    <button onClick={onAddPost}>Add New</button>
                 </div>
             </div>
             <div className={s.posts}>
