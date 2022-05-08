@@ -8,8 +8,13 @@
     color: white;
     text-decoration: none;
 }
+.item:hover{
+    color: #F4F4F4;
+    text-decoration: none;
+}
 
 .active{
     color: #F4F4F4;
     text-decoration: none;
 }
+

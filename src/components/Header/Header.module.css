@@ -7,3 +7,20 @@
     width: 40px;
     padding: 10px;
 }
+
+.loginBlock {
+    float: right;
+    padding: 20px;
+    color: white;
+    text-decoration: none;
+}
+
+.loginText{
+    color: white;
+    text-decoration: none;
+}
+
+.loginText:hover{
+    color: #F4F4F4;
+    text-decoration: none;
+}
