@@ -32,19 +32,17 @@ export const usersAPI = {
 export const authAPI = {
     getAuth(){
         return instance.get(`auth/me`)
-            .then(response =>{
-            return response.data
-            })
+            // .then(response =>{
+            // return response.data
+            // })
     }
-
 }
 
 export const profileAPI = {
     getProfile(userId){
-        return instance.get(`profile/${userId}`)
-            .then(response =>{
-                return response.data
-            })
+        return instance.get(`profile/`+userId)
+            // .then(response =>{
+            //     return response.data
+            // })
     }
-
 }
