@@ -1,25 +1,34 @@
 import {connect} from "react-redux";
 import {
-    acceptFollow, getUsers,
-    setCurrentPage, follow,
-    toggleFollowingInProgress, unfollow,
-    acceptUnfollow
+    acceptFollow,
+    acceptUnfollow,
+    follow,
+    getUsersData,
+    setCurrentPage,
+    toggleFollowingInProgress,
+    unfollow
 } from "../../redux/usersReducer";
 import React from "react";
 import Users from './Users';
 import Preloader from "../common/Preloader/Preloader";
 import {compose} from "redux";
-import {withAuthRedirect} from "../hoc/withAuthRedirect";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount, getUsers
+} from "../../redux/usersSelectors";
 
 class UsersContainer extends React.Component {
 
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+        this.props.getUsersData(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChanged = (p) => {
         this.props.setCurrentPage(p)
-        this.props.getUsers(p, this.props.pageSize)
+        this.props.getUsersData(p, this.props.pageSize)
     }
 
     render() {
@@ -41,17 +50,17 @@ class UsersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state),
     }
 };
 
 export default compose(connect(mapStateToProps, {
-    acceptFollow, acceptUnfollow, setCurrentPage, toggleFollowingInProgress, getUsers, follow, unfollow
+    acceptFollow, acceptUnfollow, setCurrentPage, toggleFollowingInProgress,  getUsersData, follow, unfollow
 }),
-    withAuthRedirect)
+    /*withAuthRedirect*/)
 (UsersContainer)
