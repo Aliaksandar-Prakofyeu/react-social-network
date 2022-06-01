@@ -17,7 +17,7 @@ import {
     getFollowingInProgress,
     getIsFetching,
     getPageSize,
-    getTotalUsersCount, getUsers
+    getTotalUsersCount, getUsers,
 } from "../../redux/usersSelectors";
 
 class UsersContainer extends React.Component {
