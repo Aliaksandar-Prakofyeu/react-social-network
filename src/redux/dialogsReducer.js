@@ -1,5 +1,4 @@
-const SEND_MESSAGE = 'SEND-MESSAGE';
-export const addMessageActionCreator = (newMessageText) => ({type: SEND_MESSAGE, newMessageText})
+const SEND_MESSAGE = 'react-social-network/dialogs/SEND-MESSAGE';
 
 let initialState = {
     dialogs: [
@@ -32,5 +31,7 @@ const dialogsReducer = (state = initialState, action) => {
     }
 
 };
+
+export const addMessageActionCreator = (newMessageText) => ({type: SEND_MESSAGE, newMessageText})
 
 export default dialogsReducer;

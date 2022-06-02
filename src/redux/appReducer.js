@@ -1,6 +1,6 @@
 import {getAuth} from "./authReducer";
 
-const INITIALIZE_SUCCESS = "INITIALIZE-SUCCESS"
+const INITIALIZE_SUCCESS = 'react-social-network/app/INITIALIZE-SUCCESS'
 
 let initialState = {
     initialized: false
@@ -18,7 +18,7 @@ const appReducer = (state = initialState, action) => {
 export const initialized = () => ({type: INITIALIZE_SUCCESS})
 
 export const initializeApp = () => (dispatch) => {
-    let promise = dispatch(getAuth())
+    const promise = dispatch(getAuth())
     Promise.all([promise]).then(() => dispatch(initialized()))
 }
 
