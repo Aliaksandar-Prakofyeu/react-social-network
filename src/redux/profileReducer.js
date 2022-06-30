@@ -3,7 +3,8 @@ import {profileAPI} from "../api/api";
 const ADD_POST = 'react-social-network/profile/ADD-POST';
 const DELETE_POST = 'react-social-network/profile/DELETE-POST';
 const SET_USER_PROFILE = 'react-social-network/profile/SET-USER-PROFILE';
-const SET_STATUS = 'react-social-network/profile/SET-STATUS'
+const SET_STATUS = 'react-social-network/profile/SET-STATUS';
+const SET_PHOTO = 'react-social-network/profile/SET-PHOTO'
 
 let initialState = {
     posts: [
@@ -28,6 +29,9 @@ const profileReducer = (state = initialState, action) => {
         case SET_STATUS: {
             return {...state, status: action.status}
         }
+        case SET_PHOTO: {
+            return{...state, profile: {...state.profile, photos: action.photos}}
+        }
         case DELETE_POST: {
             return {...state, posts: state.posts.filter(p => p.id != action.postId)}
         }
@@ -39,6 +43,7 @@ const profileReducer = (state = initialState, action) => {
 export const addPostActionCreator = (newPostText) => ({type: ADD_POST, newPostText})
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
 export const setUserStatus = (status) => ({type: SET_STATUS, status})
+export const setUserPhoto = (photos) => ({type: SET_PHOTO, photos})
 export const deletePost = (postId) => ({type: DELETE_POST, postId})
 
 export const getProfile = (userId) => async (dispatch) => {
@@ -56,6 +61,13 @@ export const updateStatus = (status) => async (dispatch) => {
         if (response.data.resultCode === 0) {
             dispatch(setUserStatus(status))
         }
+}
+
+export const updatePhoto = (photo) => async (dispatch) =>{
+    const response = await profileAPI.updatePhoto(photo);
+    if (response.data.resultCode === 0) {
+        dispatch(setUserPhoto(response.data.data.photos))
+    }
 }
 
 
