@@ -21,6 +21,8 @@ const LoginForm = ({handleSubmit, error}) => {
     </form>
 }
 
+
+
 const LoginReduxForm = reduxForm({form: 'login'})(LoginForm)
 
 const Login = (props) => {
