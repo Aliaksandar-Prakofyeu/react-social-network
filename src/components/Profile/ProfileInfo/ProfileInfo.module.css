@@ -14,4 +14,10 @@
 
 .cancelButton{
     color: red;
+    margin-left: 5px;
+}
+
+.validationError{
+    color: red;
+    border:1px solid firebrick;
 }

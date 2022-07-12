@@ -4,7 +4,7 @@ const ADD_POST = 'react-social-network/profile/ADD-POST';
 const DELETE_POST = 'react-social-network/profile/DELETE-POST';
 const SET_USER_PROFILE = 'react-social-network/profile/SET-USER-PROFILE';
 const SET_STATUS = 'react-social-network/profile/SET-STATUS';
-const SET_PHOTO = 'react-social-network/profile/SET-PHOTO'
+const SET_PHOTO = 'react-social-network/profile/SET-PHOTO';
 
 let initialState = {
     posts: [
@@ -30,10 +30,10 @@ const profileReducer = (state = initialState, action) => {
             return {...state, status: action.status}
         }
         case SET_PHOTO: {
-            return{...state, profile: {...state.profile, photos: action.photos}}
+            return {...state, profile: {...state.profile, photos: action.photos}}
         }
         case DELETE_POST: {
-            return {...state, posts: state.posts.filter(p => p.id != action.postId)}
+            return {...state, posts: state.posts.filter(p => p.id !== action.postId)}
         }
         default:
             return state;
@@ -58,15 +58,33 @@ export const getStatus = (userId) => async (dispatch) => {
 
 export const updateStatus = (status) => async (dispatch) => {
     const response = await profileAPI.updateStatus(status);
-        if (response.data.resultCode === 0) {
-            dispatch(setUserStatus(status))
-        }
+    if (response.data.resultCode === 0) {
+        dispatch(setUserStatus(status))
+    }
 }
 
-export const updatePhoto = (photo) => async (dispatch) =>{
+export const updatePhoto = (photo) => async (dispatch) => {
     const response = await profileAPI.updatePhoto(photo);
     if (response.data.resultCode === 0) {
         dispatch(setUserPhoto(response.data.data.photos))
+    }
+}
+
+
+export const updateProfile = (formData, setStatus, setSubmitting, goToViewMode) => async (dispatch, getState) => {
+
+    const response = await profileAPI.updateProfile(formData);
+
+    let resultCode = response.data.resultCode;
+
+    if (resultCode === 0) {
+        const userId = getState().auth.id;
+        goToViewMode();
+        dispatch(getProfile(userId));
+    } else {
+        let textError = `${response.data.messages.join(', ')}`;
+        setStatus(textError);
+        setSubmitting(false);
     }
 }
 
