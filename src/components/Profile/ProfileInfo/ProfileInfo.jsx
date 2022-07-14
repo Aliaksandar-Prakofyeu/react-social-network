@@ -3,7 +3,10 @@ import Preloader from "../../common/Preloader/Preloader";
 import userPhoto from "../../../assets/images/avatarPlaceholder.png";
 import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
 import {useState} from "react";
-import ProfileDataForm from "./ProfileStatus/ProfileDataForm";
+import ProfileDataForm from "./ProfileData/ProfileDataForm";
+import ProfileData from "./ProfileData/ProfileData";
+import {Avatar, Box, IconButton, Stack, Typography} from "@mui/material";
+import {PhotoCamera} from "@mui/icons-material";
 
 
 const ProfileInfo = ({isOwner, profile, status, updateStatus, updatePhoto, updateProfile}) => {
@@ -21,56 +24,36 @@ const ProfileInfo = ({isOwner, profile, status, updateStatus, updatePhoto, updat
     const handleSubmit = (formData, setStatus,
                           setSubmitting, goToViewMode) => {
 
-        updateProfile( formData, setStatus, setSubmitting, goToViewMode );
+        updateProfile(formData, setStatus, setSubmitting, goToViewMode);
 
     }
     return (
-        <div>
-            <div className={s.descriptionBlock}>
-                <img className={s.profileImage}
-                     src={profile.photos.large != null ? profile.photos.large : userPhoto} alt={'Avatar'}/>
-                {isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
-                <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
-                <br/>
-                {editMode ?
-                    <ProfileDataForm profile={profile}  handleSubmit={handleSubmit}  goToViewMode={() => {setEditMode(false)}}/> :
-                    <ProfileData profile={profile} goToEditMode={() => {setEditMode(true)}} isOwner={isOwner}/>}
-            </div>
-        </div>
+        <Box>
+            <Stack direction={"row"} spacing={2} alignItems={"center"}>
+                {isOwner ? <IconButton flex={2} sx={{width:"150px"}} color="primary" aria-label="upload picture" component="label">
+                    <input hidden type={"file"} onChange={onMainPhotoSelected}/>
+                    <Avatar  src={profile.photos.large != null ? profile.photos.large : userPhoto}
+                            alt={'Avatar'}
+                            sx={{width:"150px", height:"150px"}}/>
+                </IconButton> : <Avatar flex={2} src={profile.photos.large != null ? profile.photos.large : userPhoto}
+                    alt={'Avatar'}
+                    sx={{width:"150px", height:"150px"}}/>}
+
+                <Stack direction={"column"} flex={4} spacing={1} alignItems={"left"}>
+                    <Typography>{profile.fullName}</Typography>
+                    <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
+                </Stack>
+            </Stack>
+            {editMode ?
+                <ProfileDataForm profile={profile} handleSubmit={handleSubmit} goToViewMode={() => {
+                    setEditMode(false)
+                }}/> :
+                <ProfileData profile={profile} goToEditMode={() => {
+                    setEditMode(true)
+                }} isOwner={isOwner}/>}
+        </Box>
     )
 };
 
-
-
-
-const ProfileData = ({profile, isOwner, goToEditMode}) => {
-    return <div>
-        <div>{profile.fullName}</div>
-        <br/>
-        <div>
-            <b>Looking for a job: {profile.lookingForAJob ? 'Yes' : 'No'}</b>
-            <br/>
-            {profile.lookingForAJob && <div>
-                <b>My professional skills</b>: {profile.lookingForAJobDescription}
-            </div>}
-        </div>
-        <div>
-            <b> About me</b>: {profile.aboutMe}
-        </div>
-        <hr/>
-        <div>
-            <b>Contacts</b>: {Object.keys(profile.contacts).map(key => {
-            return <Contact key={key} contactName={key} contactValue={profile.contacts[key]}/>
-        })}
-        </div>
-        <br/>
-        {isOwner && <button onClick={goToEditMode}>Edit profile</button>}
-    </div>
-};
-
-
-const Contact = ({contactName, contactValue}) => {
-    return <div className={s.contactItem}><b>{contactName}</b>: {contactValue}</div>
-}
 
 export default ProfileInfo;

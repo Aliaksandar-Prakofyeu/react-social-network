@@ -3,8 +3,12 @@ import reportWebVitals from './reportWebVitals';
 import ReactDOM from "react-dom";
 import React from "react";
 import SocialNetworkApp from "./App";
+import {ThemeProvider} from "@mui/material";
+import {theme} from "./utils/theme";
 
-ReactDOM.render(<SocialNetworkApp/>, document.getElementById('root'));
+ReactDOM.render(<ThemeProvider theme={theme}>
+    <SocialNetworkApp/>
+</ThemeProvider>, document.getElementById('root'));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

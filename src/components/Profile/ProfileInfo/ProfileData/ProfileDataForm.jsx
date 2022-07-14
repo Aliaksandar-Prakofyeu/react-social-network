@@ -2,7 +2,7 @@ import React from "react";
 
 import {ErrorMessage, Field, FieldArray, Form, Formik} from "formik";
 import * as Yup from "yup";
-import s from './../ProfileInfo.module.css'
+import s from '../ProfileInfo.module.css'
 import {ErrorMessageWrapper} from "../../../common/ErrorMessageWrapper/ErrorMessageWrapper";
 
 const validationSchema = Yup.object().shape( {

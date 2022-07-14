@@ -1,8 +1,9 @@
-import s from "./../Dialogs.module.css";
+
 import React from "react";
+import {Card, Typography} from "@mui/material";
 
 const Message = (props) => {
-    return <div className={s.message}>{props.message}</div>
+    return<Typography  sx={{padding:"10px"}}>{props.message}</Typography>
 }
 
 

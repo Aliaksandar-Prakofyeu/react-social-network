@@ -1,23 +1,10 @@
-import s from "./Dialogs.module.css";
+
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import React from "react";
-import {Field, reduxForm} from "redux-form";
-import {FormControl} from "../common/FormControls/FormControls";
-import {maxLengthCreator, required} from "../../utils/validators/validators";
+import NewMessageForm from "./Message/NewMessageForm";
+import {Box, Divider, Stack} from "@mui/material";
 
-const maxLength140 = maxLengthCreator(140)
-
-const NewMessageForm = (props) => {
-    return <form onSubmit={props.handleSubmit}>
-        <div>
-            <Field placeholder={'Enter your message'} name={'newMessageText'} fieldType={'textarea'} component={FormControl} validate={[required, maxLength140]}/>
-        </div>
-        <button>Send message</button>
-    </form>
-}
-
-const NewMessageReduxForm = reduxForm({form: 'newMessage'})(NewMessageForm)
 
 const Dialogs = (props) => {
 
@@ -25,21 +12,21 @@ const Dialogs = (props) => {
 
     let messagesElements = props.messages.map(m => <Message message={m.message} key={m.id}/>);
 
-    const addNewMessage = (newMessageData) => {
+    const handleSubmit = (newMessageData) => {
         props.addMessage(newMessageData.newMessageText)
         newMessageData.newMessageText= ''
     }
 
     return (
-        <div className={s.dialogs}>
-            <div className={s.dialogsItems}>
+        <Stack sx={{paddingTop:"30px"}} direction={"row"}  spacing={2} divider={<Divider orientation={"vertical"} flexItem/>} justifyContent={"left"}>
+            <Box flex={1}>
                 {dialogsElements}
-            </div>
-            <div className={s.messages}>
+            </Box>
+            <Box flex={5} >
                 <div>{messagesElements}</div>
-                <NewMessageReduxForm onSubmit={addNewMessage}/>
-            </div>
-        </div>
+                <NewMessageForm  handleSubmit={handleSubmit}/>
+            </Box>
+        </Stack>
 
     )
 }

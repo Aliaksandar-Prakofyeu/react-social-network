@@ -1,16 +1,13 @@
-import s from "./DialogItem.module.css";
-import {NavLink} from "react-router-dom";
 
+import userPhoto from "../../../assets/images/avatarPlaceholder.png";
+import {Avatar, Box, Stack, Typography} from "@mui/material";
 
 const DialogItem = (props) => {
-    let path = '/dialogs/' + props.id;
     return (
-        <div className={s.dialog}>
-            <NavLink to={path} className={s.name}><img
-                src={'https://freepikpsd.com/file/2019/10/avatar-png-2-Transparent-Images.png'}
-                alt={"profilePic"}/>{props.name}</NavLink>
-        </div>
-
+        <Stack direction={"row"} spacing={2} alignItems={"center"} padding={"10px"}>
+            <Avatar alt={props.name} src={userPhoto} flex={2}/>
+            <Typography flex={4}>{props.name}</Typography>
+        </Stack>
     );
 
 }

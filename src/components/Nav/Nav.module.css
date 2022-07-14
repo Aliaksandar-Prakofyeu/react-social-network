@@ -7,6 +7,10 @@
 .item  {
     color: white;
     text-decoration: none;
+    padding: 10px;
+}
+.item .icon{
+    color: white;
 }
 .item:hover{
     color: #F4F4F4;
