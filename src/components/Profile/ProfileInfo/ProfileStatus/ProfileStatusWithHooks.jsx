@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {Box, TextField, Typography} from "@mui/material";
 
 const ProfileStatusWithHooks = (props) => {
     let [editMode, setEditMode] = useState(false)
@@ -20,18 +21,21 @@ const ProfileStatusWithHooks = (props) => {
         props.updateStatus(status)
     }
     return (
-        <div>
+        <Box>
             {!editMode &&
-                <div>
-                    <span onDoubleClick={activateEditMode}>{props.status || '---'}</span>
-                </div>
+                    <Typography sx={{cursor: "pointer"}}
+                                variant="subtitle1"
+                                onDoubleClick={activateEditMode}>{props.status || '---'}
+                    </Typography>
             }
             {editMode  &&
-                <div>
-                    <input onChange={onStatusChange} onBlur={deactivateEditMode} autoFocus={true} value={status}/>
-                </div>
+                    <TextField
+                        onChange={onStatusChange}
+                        onBlur={deactivateEditMode}
+                        autoFocus={true}
+                        value={status}/>
             }
-        </div>
+        </Box>
     )
 }
 

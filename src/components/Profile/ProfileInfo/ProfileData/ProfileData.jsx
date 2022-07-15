@@ -1,32 +1,30 @@
+import {Box, Button, Stack, Typography} from "@mui/material";
 
 
 const ProfileData = ({profile, isOwner, goToEditMode}) => {
-    return <div>
-        <br/>
-        <div>
-            <b>Looking for a job: {profile.lookingForAJob ? 'Yes' : 'No'}</b>
-            <br/>
-            {profile.lookingForAJob && <div>
-                <b>My professional skills</b>: {profile.lookingForAJobDescription}
-            </div>}
-        </div>
-        <div>
-            <b> About me</b>: {profile.aboutMe}
-        </div>
-        <hr/>
-        <div>
-            <b>Contacts</b>: {Object.keys(profile.contacts).map(key => {
-            return <Contact key={key} contactName={key} contactValue={profile.contacts[key]}/>
-        })}
-        </div>
-        <br/>
-        {isOwner && <button onClick={goToEditMode}>Edit profile</button>}
-    </div>
+    return (
+        <Box>
+            <Stack>
+                <Typography sx={{fontWeight: "bold"}}>Looking for a job: {profile.lookingForAJob ? 'Yes' : 'No'}</Typography>
+
+                {profile.lookingForAJob &&
+                    <Typography>My professional skills : {profile.lookingForAJobDescription}</Typography>
+                }
+                <Typography> About me :</Typography> {profile.aboutMe}
+                <Typography>Contacts:</Typography> {Object.keys(profile.contacts).map(key => {
+                return <Contact key={key} contactName={key} contactValue={profile.contacts[key]}/>
+            })}
+                {isOwner && <Button variant={"contained"} onClick={goToEditMode}>Edit profile</Button>}
+            </Stack>
+        </Box>
+
+    )
+
 };
 
 
 const Contact = ({contactName, contactValue}) => {
-    return <div ><b>{contactName}</b>: {contactValue}</div>
+    return <Typography>{contactName}: {contactValue}</Typography>
 }
 
 export default ProfileData

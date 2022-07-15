@@ -40,7 +40,7 @@ const ProfileInfo = ({isOwner, profile, status, updateStatus, updatePhoto, updat
                     sx={{width:"150px", height:"150px"}}/>}
 
                 <Stack direction={"column"} flex={4} spacing={1} alignItems={"left"}>
-                    <Typography>{profile.fullName}</Typography>
+                    <Typography variant={"h6"}>{profile.fullName}</Typography>
                     <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
                 </Stack>
             </Stack>
