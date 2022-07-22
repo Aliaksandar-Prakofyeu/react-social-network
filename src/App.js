@@ -1,18 +1,13 @@
 import './App.css';
 import Nav from "./components/Nav/Nav";
-import News from "./components/News/News";
-import Music from "./components/Music/Music";
-import Settings from "./components/Settings/Settings";
-import Login from "./components/Login/Login";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderСontainer";
-import {Component, useState} from "react";
+import React, {Component} from "react";
 import {connect, Provider} from "react-redux";
 import {initializeApp} from "./redux/appReducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import store from "./redux/reduxStore";
-import React from "react";
-import {ThemeProvider, createTheme, Stack, Box} from "@mui/material";
+import {Box, Stack} from "@mui/material";
 import AllMainComponentsWithRouter from "./components/AllMainComponentsWithRouter";
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));

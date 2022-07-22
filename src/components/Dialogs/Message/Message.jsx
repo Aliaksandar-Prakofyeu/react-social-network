@@ -1,6 +1,5 @@
-
 import React from "react";
-import {Card, Typography} from "@mui/material";
+import {Typography} from "@mui/material";
 
 const Message = (props) => {
     return<Typography  sx={{padding:"10px"}}>{props.message}</Typography>

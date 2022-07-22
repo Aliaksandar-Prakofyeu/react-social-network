@@ -1,4 +1,3 @@
-import s from "./ProfileInfo.module.css";
 import Preloader from "../../common/Preloader/Preloader";
 import userPhoto from "../../../assets/images/avatarPlaceholder.png";
 import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
@@ -6,7 +5,6 @@ import {useState} from "react";
 import ProfileDataForm from "./ProfileData/ProfileDataForm";
 import ProfileData from "./ProfileData/ProfileData";
 import {Avatar, Box, IconButton, Stack, Typography} from "@mui/material";
-import {PhotoCamera} from "@mui/icons-material";
 
 
 const ProfileInfo = ({isOwner, profile, status, updateStatus, updatePhoto, updateProfile}) => {
@@ -45,7 +43,7 @@ const ProfileInfo = ({isOwner, profile, status, updateStatus, updatePhoto, updat
                 </Stack>
             </Stack>
             {editMode ?
-                <ProfileDataForm profile={profile} handleSubmit={handleSubmit} goToViewMode={() => {
+                <ProfileDataForm profile={profile} handleSubmit={handleSubmit} editMode={editMode} goToViewMode={() => {
                     setEditMode(false)
                 }}/> :
                 <ProfileData profile={profile} goToEditMode={() => {
