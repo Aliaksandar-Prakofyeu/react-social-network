@@ -27,7 +27,7 @@ const ProfileInfo = ({isOwner, profile, status, updateStatus, updatePhoto, updat
     }
     return (
         <Box>
-            <Stack direction={"row"} spacing={2} alignItems={"center"}>
+            <Stack direction={"row"} spacing={2} alignItems={"center"} sx={{marginTop: "20px", marginBottom: "20px"}}>
                 {isOwner ? <IconButton flex={2} sx={{width:"150px"}} color="primary" aria-label="upload picture" component="label">
                     <input hidden type={"file"} onChange={onMainPhotoSelected}/>
                     <Avatar  src={profile.photos.large != null ? profile.photos.large : userPhoto}

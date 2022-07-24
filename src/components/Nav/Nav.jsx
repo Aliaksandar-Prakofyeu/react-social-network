@@ -1,20 +1,7 @@
-import s from './Nav.module.css';
-import {NavLink} from "react-router-dom";
-import {
-    Box,
-    Button,
-    Icon,
-    List,
-    ListItem,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
-    MenuItem,
-    MenuList, Switch
-} from "@mui/material";
-import {AccountBox, Feed, Group, Message, ModeNight, MusicNote, Person, Settings} from "@mui/icons-material";
+import {Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
+import {Feed, Group, Message, MusicNote, Person, Settings} from "@mui/icons-material";
 
-const Nav = (mode, setMode) => {
+const Nav = () => {
 
     return (
         <Box flex={1} p={2} sx={{display: {xs: "none", sm: "block"}}}>

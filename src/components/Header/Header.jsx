@@ -1,17 +1,7 @@
-import s from './Header.module.css';
 import React from "react";
-import {
-    AppBar,
-    Box,
-    Button,
-    IconButton,
-    Menu,
-    MenuItem,
-    Toolbar,
-    Typography
-} from "@mui/material";
+import {AppBar, Button, IconButton, Menu, MenuItem, Toolbar, Typography} from "@mui/material";
 import {useNavigate} from "react-router";
-import {AccountCircle, EmojiPeople} from "@mui/icons-material";
+import {EmojiPeople} from "@mui/icons-material";
 
 
 const Header = (props) => {
@@ -31,8 +21,7 @@ const Header = (props) => {
         setAnchorEl(null);
     };
     return (
-        <Box sx={{flexGrow: 1}} className={s.header}>
-            <AppBar position="static">
+            <AppBar position="sticky">
                 <Toolbar>
                     <EmojiPeople/>
                     <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
@@ -72,7 +61,7 @@ const Header = (props) => {
                     ) : (<Button onClick={routeChange} color={"inherit"}>Login</Button>)}
                 </Toolbar>
             </AppBar>
-        </Box>
+
         /*
                 <header className={s.header}>
                     <img src="https://www.onlygfx.com/wp-content/uploads/2018/03/grunge-circle-2-4.png" alt={'logo'}/>
