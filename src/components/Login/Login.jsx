@@ -7,7 +7,7 @@ import {Box} from "@mui/material";
 
 const Login = (props) => {
     const handleSubmit = (formData) => {
-        props.logIn(formData.email, formData.password, formData.rememberMe);
+        props.logIn(formData.email, formData.password, formData.rememberMe , formData.captcha);
     }
 
     if (props.isAuth) {
@@ -15,11 +15,12 @@ const Login = (props) => {
     }
     return(
         <Box>
-            <LoginForm handleSubmit={handleSubmit}/>
+            <LoginForm handleSubmit={handleSubmit} captchaUrl={props.captchaUrl}/>
         </Box>
         )
 }
 const mapStateToProps = (state) => ({
+    captchaUrl: state.auth.captchaUrl,
     isAuth: state.auth.isAuth
 })
 

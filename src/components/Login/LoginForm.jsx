@@ -13,12 +13,13 @@ const validationSchema = yup.object({
 
 
 const LoginForm = (props) => {
-    const {handleSubmit} = props;
+    const {handleSubmit, captchaUrl} = props;
     const formik = useFormik({
         initialValues: {
           email: '',
           password: '',
-          rememberMe: false
+          rememberMe: false,
+          captcha: ''
         },
         validationSchema: validationSchema,
         onSubmit: (values)=>{
@@ -50,6 +51,14 @@ const LoginForm = (props) => {
                 <Switch value={formik.values.rememberMe}/>
                 <Typography component="label">Remember me</Typography>
             </Box>
+            {captchaUrl && <Stack>
+                <img alt={"captcha"} src={captchaUrl}/>
+                <TextField name="captcha"
+                           placeholder="type symbols from captcha here"
+                           value={formik.values.captcha}
+                           onChange={formik.handleChange}
+                />
+            </Stack>}
             <Button flex={1}  variant={"contained"} type={"submit"}>Log In</Button>
         </Stack>
 

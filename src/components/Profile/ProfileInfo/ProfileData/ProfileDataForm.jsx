@@ -160,7 +160,7 @@ const ProfileDataForm = (props) => {
 
                                     {status &&
                                         <div className={s.validationError}>
-                                            <b> ..{status} - with setStatus </b>
+                                            <b> {status} - with setStatus </b>
                                         </div>}
 
                                     <Button variant={"text"} type={'submit'}
