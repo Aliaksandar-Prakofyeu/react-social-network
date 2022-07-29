@@ -4,10 +4,14 @@ import News from "./News/News";
 import Music from "./Music/Music";
 import Settings from "./Settings/Settings";
 import React from "react";
-import DialogsContainer from "./Dialogs/DialogsContainer";
-import ProfileContainer from "./Profile/ProfileContainer";
-import UsersContainer from "./Users/UsersContainer";
 import {Box} from "@mui/material";
+import {Navigate} from "react-router";
+import NotFound from "./common/NotFound/NotFound";
+
+const DialogsContainer = React.lazy(() => import('./Dialogs/DialogsContainer'));
+const ProfileContainer = React.lazy(() => import('./Profile/ProfileContainer'));
+const UsersContainer = React.lazy(() => import('./Users/UsersContainer'));
+
 
 const AllMainComponentsWithRouter = () => {
     return (
@@ -21,6 +25,8 @@ const AllMainComponentsWithRouter = () => {
                 <Route path='/news' element={<News/>}/>
                 <Route path='/music' element={<Music/>}/>
                 <Route path='/settings' element={<Settings/>}/>
+                <Route path="/" element={<Navigate to="/profile" />} />
+                <Route path='*' element={<NotFound />} />
             </Routes>
         </Box>
 

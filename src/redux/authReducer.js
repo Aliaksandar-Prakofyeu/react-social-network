@@ -57,16 +57,19 @@ export const getCaptchaUrl =() => async (dispatch) => {
 
 
 export const logIn = (email, password, rememberMe, captcha) => async (dispatch) => {
-    const response = await authAPI.logIn(email, password, rememberMe, captcha);
-    if (response.data.resultCode === 0) {
-        dispatch(getAuth())
-    } else {
-        if (response.data.resultCode === 10){
-            dispatch(getCaptchaUrl());
-        }
-        let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error'
-        dispatch(stopSubmit('login', {_error: message}))
-    }
+   try{
+       const response = await authAPI.logIn(email, password, rememberMe, captcha);
+       if (response.data.resultCode === 0) {
+           dispatch(getAuth())
+       } else {
+           if (response.data.resultCode === 10){
+               dispatch(getCaptchaUrl());
+           }
+           let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error'
+           dispatch(stopSubmit('login', {_error: message}))
+       }} catch (error){
+            debugger;
+   }
 }
 
 

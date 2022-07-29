@@ -10,25 +10,31 @@ import store from "./redux/reduxStore";
 import {Box, Stack} from "@mui/material";
 import AllMainComponentsWithRouter from "./components/AllMainComponentsWithRouter";
 
-const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
-const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
-const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
 
 
 class App extends Component {
 
+    catchAllUnhandledErrors = (reason, promise) =>{
+        alert("Some error occurred");
+
+    }
+
     componentDidMount() {
-        this.props.initializeApp()
+        this.props.initializeApp();
+        window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors)
     }
 
     render() {
 
-
         if (!this.props.initialized) {
             return <Preloader/>
         }
-        return (
 
+        return (
             <Box>
                 <HeaderContainer/>
                 <Stack direction={"row"} spacing={2} justifyContent={"space-between"}>
@@ -38,7 +44,6 @@ class App extends Component {
                     </React.Suspense>
                 </Stack>
             </Box>
-
         );
     }
 }
