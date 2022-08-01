@@ -55,14 +55,7 @@ const Nav = () => {
                             <ListItemText primary={"Settings"}/>
                         </ListItemButton>
                     </ListItem>
-                    {/*<ListItem>
-                        <ListItemButton component={"a"} href={"#"}>
-                            <ListItemIcon>
-                                <ModeNight/>
-                            </ListItemIcon>
-                            <Switch onChange={()=>setMode(mode==="light" ? "dark" : "light")}/>
-                        </ListItemButton>
-                    </ListItem>*/}
+
                 </List>
             </Box>
         </Box>

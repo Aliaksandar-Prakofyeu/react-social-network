@@ -9,6 +9,8 @@ import Preloader from "./components/common/Preloader/Preloader";
 import store from "./redux/reduxStore";
 import {Box, Stack} from "@mui/material";
 import AllMainComponentsWithRouter from "./components/AllMainComponentsWithRouter";
+import BottomNav from "./components/Nav/BottomNav";
+
 
 
 
@@ -42,7 +44,9 @@ class App extends Component {
                     <React.Suspense fallback={<Preloader/>}>
                         <AllMainComponentsWithRouter/>
                     </React.Suspense>
+                    <BottomNav />
                 </Stack>
+
             </Box>
         );
     }
