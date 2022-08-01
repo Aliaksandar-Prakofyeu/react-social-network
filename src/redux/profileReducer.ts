@@ -1,4 +1,5 @@
 import {profileAPI} from "../api/api";
+import {PhotosType, PostType, ProfileType} from "../Types/types";
 
 const ADD_POST = 'react-social-network/profile/ADD-POST';
 const DELETE_POST = 'react-social-network/profile/DELETE-POST';
@@ -8,14 +9,17 @@ const SET_PHOTO = 'react-social-network/profile/SET-PHOTO';
 
 let initialState = {
     posts: [
-        {id: 1, message: 'Hi how are you?', likeCount: 10},
-        {id: 2, message: 'It\'s my first post', likeCount: 20},
-    ],
-    profile: null,
+        {id: 1, message: 'Hi how are you?', likesCount: 10},
+        {id: 2, message: 'It\'s my first post', likesCount: 20},
+    ] as Array<PostType>,
+    profile: null as ProfileType | null,
     status: '',
-};
+    newPostText: ''
+}
 
-const profileReducer = (state = initialState, action) => {
+type InitialStateType = typeof initialState
+
+const profileReducer = (state = initialState, action: any): InitialStateType => {
     switch (action.type) {
         case ADD_POST: {
             return {
@@ -30,7 +34,7 @@ const profileReducer = (state = initialState, action) => {
             return {...state, status: action.status}
         }
         case SET_PHOTO: {
-            return {...state, profile: {...state.profile, photos: action.photos}}
+            return {...state, profile: {...state.profile, photos: action.photos} as ProfileType}
         }
         case DELETE_POST: {
             return {...state, posts: state.posts.filter(p => p.id !== action.postId)}
@@ -40,30 +44,60 @@ const profileReducer = (state = initialState, action) => {
     }
 
 };
-export const addPostActionCreator = (newPostText) => ({type: ADD_POST, newPostText})
-export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
-export const setUserStatus = (status) => ({type: SET_STATUS, status})
-export const setUserPhoto = (photos) => ({type: SET_PHOTO, photos})
-export const deletePost = (postId) => ({type: DELETE_POST, postId})
 
-export const getProfile = (userId) => async (dispatch) => {
+type AddPostActionType = {
+    type: typeof ADD_POST
+    newPostText: string
+}
+
+export const addPostActionCreator = (newPostText: string): AddPostActionType => ({type: ADD_POST, newPostText})
+
+type SetUserProfileType = {
+    type: typeof SET_USER_PROFILE
+    profile: ProfileType
+}
+
+export const setUserProfile = (profile: ProfileType): SetUserProfileType => ({type: SET_USER_PROFILE, profile})
+
+type SetUserStatusType = {
+    type: typeof SET_STATUS
+    status: string
+}
+
+export const setUserStatus = (status: string): SetUserStatusType=> ({type: SET_STATUS, status})
+
+type SetUserPhotoType = {
+    type: typeof SET_PHOTO
+    photos: PhotosType
+}
+
+export const setUserPhoto = (photos: PhotosType): SetUserPhotoType => ({type: SET_PHOTO, photos})
+
+type DeletePostType = {
+    type: typeof DELETE_POST
+    postId: number
+}
+
+export const deletePost = (postId: number): DeletePostType => ({type: DELETE_POST, postId})
+
+export const getProfile = (userId:number) => async (dispatch: any) => {
     const response = await profileAPI.getProfile(userId);
     dispatch(setUserProfile(response.data));
 }
 
-export const getStatus = (userId) => async (dispatch) => {
+export const getStatus = (userId: number) => async (dispatch: any) => {
     const response = await profileAPI.getStatus(userId);
     dispatch(setUserStatus(response.data));
 }
 
-export const updateStatus = (status) => async (dispatch) => {
+export const updateStatus = (status: string) => async (dispatch: any) => {
     const response = await profileAPI.updateStatus(status);
     if (response.data.resultCode === 0) {
         dispatch(setUserStatus(status))
     }
 }
 
-export const updatePhoto = (photo) => async (dispatch) => {
+export const updatePhoto = (photo: PhotosType) => async (dispatch: any) => {
     const response = await profileAPI.updatePhoto(photo);
     if (response.data.resultCode === 0) {
         dispatch(setUserPhoto(response.data.data.photos))
@@ -71,7 +105,7 @@ export const updatePhoto = (photo) => async (dispatch) => {
 }
 
 
-export const updateProfile = (formData, setStatus, setSubmitting, goToViewMode) => async (dispatch, getState) => {
+export const updateProfile = (formData: any, setStatus: any, setSubmitting: any, goToViewMode: any) => async (dispatch: any, getState: any) => {
 
     const response = await profileAPI.updateProfile(formData);
 

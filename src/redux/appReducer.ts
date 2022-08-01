@@ -2,11 +2,15 @@ import {getAuth} from "./authReducer";
 
 const INITIALIZE_SUCCESS = 'react-social-network/app/INITIALIZE-SUCCESS'
 
-let initialState = {
+export type InitialStateType = {
+    initialized : boolean
+}
+
+let initialState: InitialStateType = {
     initialized: false
 }
 
-const appReducer = (state = initialState, action) => {
+const appReducer = (state = initialState, action: any): InitialStateType => {
     switch (action.type) {
         case INITIALIZE_SUCCESS:
             return {...state, initialized: true}
@@ -15,9 +19,13 @@ const appReducer = (state = initialState, action) => {
     }
 }
 
-export const initialized = () => ({type: INITIALIZE_SUCCESS})
+type InitializeSuccessActionType = {
+    type: typeof INITIALIZE_SUCCESS
+}
 
-export const initializeApp = () => (dispatch) => {
+export const initialized = (): InitializeSuccessActionType => ({type: INITIALIZE_SUCCESS})
+
+export const initializeApp = () => (dispatch: any) => {
     const promise = dispatch(getAuth())
     Promise.all([promise]).then(() => dispatch(initialized()))
 }
