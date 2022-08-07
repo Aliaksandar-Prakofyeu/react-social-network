@@ -4,15 +4,27 @@ import Message from "./Message/Message";
 import React from "react";
 import NewMessageForm from "./Message/NewMessageForm";
 import {Box, Divider, Stack} from "@mui/material";
+import {DialogItemType, MessageType, NewMessageDataType} from "../../Types/types";
 
 
-const Dialogs = (props) => {
+
+type DialogsType = {
+    pageTitle: string
+    dialogs: Array<DialogItemType>
+    messages: Array<MessageType>
+    newMessageText: string
+    d: DialogItemType
+    m: MessageType
+    addMessage: (newMessageText: string) => void
+}
+
+const Dialogs: React.FC<DialogsType> = (props) => {
 
     let dialogsElements = props.dialogs.map(d => <DialogItem name={d.name} key={d.id} id={d.id}/>);
 
-    let messagesElements = props.messages.map(m => <Message message={m.message} key={m.id}/>);
+    let messagesElements = props.messages.map(m => <Message message={m.message} key={m.message}/>);
 
-    const handleSubmit = (newMessageData) => {
+    const handleSubmit = (newMessageData: NewMessageDataType) => {
         props.addMessage(newMessageData.newMessageText)
         newMessageData.newMessageText= ''
     }

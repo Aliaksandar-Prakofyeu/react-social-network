@@ -2,6 +2,7 @@ import React from "react";
 import {useFormik} from "formik";
 import * as yup from "yup";
 import {Box, Button, Stack, Switch, TextField, Typography} from "@mui/material";
+import {LoginFormDataType} from "../../Types/types";
 
 const validationSchema = yup.object({
     email: yup.string().email().required("Email is required"),
@@ -12,7 +13,14 @@ const validationSchema = yup.object({
 });
 
 
-const LoginForm = (props) => {
+
+
+type LoginFormType = {
+    handleSubmit: (props: LoginFormDataType) => void
+    captchaUrl: string | null
+}
+
+const LoginForm: React.FC<LoginFormType> = (props) => {
     const {handleSubmit, captchaUrl} = props
     const formik = useFormik({
         initialValues: {
@@ -29,7 +37,7 @@ const LoginForm = (props) => {
     return (<form onSubmit={formik.handleSubmit}>
         <Stack direction={"column"} alignItems={"stretch"} spacing={2} sx={{maxWidth: "400px"}}>
             <Typography align={"center"} flex={1} variant={"h3"}>Log in</Typography>
-            <TextField flex={2}
+            <TextField sx={{flex:2}}
                        name="email"
                        type="email"
                        label={'Email'}
@@ -39,7 +47,7 @@ const LoginForm = (props) => {
                        error={formik.touched.email && Boolean(formik.errors.email)}
                        helperText={formik.touched.email && formik.errors.email}
             />
-            <TextField flex={2}
+            <TextField sx={{flex:2}}
                        name="password"
                        type="password"
                        label={'Password'}
@@ -61,7 +69,7 @@ const LoginForm = (props) => {
                            onChange={formik.handleChange}
                 />
             </Stack>}
-            <Button flex={1} variant={"contained"} type={"submit"}>Log In</Button>
+            <Button sx={{flex:2}} variant={"contained"} type={"submit"}>Log In</Button>
         </Stack>
 
     </form>)

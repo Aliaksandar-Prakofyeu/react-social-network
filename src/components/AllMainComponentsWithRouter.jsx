@@ -21,7 +21,7 @@ const AllMainComponentsWithRouter = () => {
                 <Route path='/profile/*' element={<ProfileContainer/>}/>
                 <Route path='/profile/:userId' element={<ProfileContainer/>}/>
                 <Route path='/login' element={<Login/>}/>
-                <Route path='/users' element={<UsersContainer/>}/>
+                <Route path='/users' element={<UsersContainer pageTitle='Samurais'/>}/>
                 <Route path='/news' element={<News/>}/>
                 <Route path='/music' element={<Music/>}/>
                 <Route path='/settings' element={<Settings/>}/>

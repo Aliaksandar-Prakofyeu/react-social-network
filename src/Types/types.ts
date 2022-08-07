@@ -36,3 +36,23 @@ export type UserType = {
     photos: PhotosType
     followed: boolean
 }
+
+export type DialogItemType = {
+    name: string
+    id: number
+}
+
+export type MessageType = {
+    message: string
+}
+
+export type NewMessageDataType = {
+    newMessageText: string
+}
+
+export type LoginFormDataType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha: string
+}

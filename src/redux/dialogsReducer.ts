@@ -26,6 +26,7 @@ let initialState = {
         {id: 4, message: 'Good'},
         {id: 5, message: 'Bye'},
     ] as Array<MessageType>,
+    newMessageText: ' '
 }
 
 export type InitialStateType = typeof initialState

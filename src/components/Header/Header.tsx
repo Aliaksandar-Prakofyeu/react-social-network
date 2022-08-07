@@ -4,7 +4,14 @@ import {useNavigate} from "react-router";
 import {EmojiPeople} from "@mui/icons-material";
 
 
-const Header = (props) => {
+
+type HeaderType = {
+    isAuth: boolean
+    logOut: () => void
+    login: string
+}
+
+const Header: React.FC<HeaderType> = (props) => {
     let navigate = useNavigate();
     const routeChange = () => {
         let path = `/login`;
@@ -13,7 +20,7 @@ const Header = (props) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
 
 
-    const handleMenu = (event) => {
+    const handleMenu = (event: any) => {
         setAnchorEl(event.currentTarget);
     };
 
@@ -37,7 +44,7 @@ const Header = (props) => {
                                 onClick={handleMenu}
                                 color="inherit"
                             >
-                                <Typography vsriant={'h5'} component={'span'}>{props.login}</Typography>
+                                <Typography variant={'h5'} component={'span'}>{props.login}</Typography>
                             </IconButton>
                             <Menu
                                 id="menu-appbar"
