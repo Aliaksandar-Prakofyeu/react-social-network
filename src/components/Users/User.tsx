@@ -1,9 +1,17 @@
 import React from "react";
+// @ts-ignore
 import userPhoto from "../../assets/images/avatarPlaceholder.png";
 import {Avatar, Button, IconButton, Stack, Typography} from "@mui/material";
+import {UserType} from "../../Types/types";
 
+type PropsType = {
+    user: UserType
+    followingInProgress: Array<number>
+    follow: (id: number) => void
+    unfollow: (id: number) => void
+}
 
-const User = ({user, followingInProgress, unfollow, follow}) => {
+const User:  React.FC<PropsType> = ({user, followingInProgress, unfollow, follow}) => {
     return (
         <Stack direction={"row"} spacing={2} sx={{border:"solid 1px grey",borderRadius: "5px" , padding: "10px", margin:"10px"}}>
 

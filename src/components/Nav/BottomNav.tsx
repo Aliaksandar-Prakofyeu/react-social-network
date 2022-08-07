@@ -4,7 +4,7 @@ import {Feed, Group, Message, Person} from "@mui/icons-material";
 
 const BottomNav = () => {
     return (
-        <Box sx>
+        <Box>
             <Paper sx={{position: 'fixed', bottom: 0, left: 0, right: 0, display: {xs: "block", sm: "none"}}}
                    elevation={3}>
                 <BottomNavigation>

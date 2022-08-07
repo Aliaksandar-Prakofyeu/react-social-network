@@ -1,7 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import {Box, TextField, Typography} from "@mui/material";
 
-const ProfileStatusWithHooks = (props) => {
+type PropsType = {
+    status: string
+    updateStatus: (status: string) => void
+}
+
+const ProfileStatusWithHooks: React.FC<PropsType> = (props) => {
     let [editMode, setEditMode] = useState(false)
     let [status, setStatus] = useState(props.status)
     useEffect(() => {
@@ -12,7 +17,7 @@ const ProfileStatusWithHooks = (props) => {
             setEditMode(true)
     }
 
-    const onStatusChange = (e) =>{
+    const onStatusChange = (e: ChangeEvent<HTMLInputElement>) =>{
         setStatus(e.currentTarget.value)
     }
 

@@ -1,9 +1,13 @@
+// @ts-ignore
 import userPhoto from '../../../../assets/images/avatarPlaceholder.png';
 import {Avatar, IconButton, Stack, Typography} from '@mui/material';
 import React from 'react';
 import {ThumbDownAlt, ThumbUp} from '@mui/icons-material';
+import {PostType} from "../../../../Types/types";
 
-const Post = (props) => {
+
+
+const Post: React.FC<PostType> = (props) => {
     return (
         <Stack direction={'row'} spacing={2}
                sx={{border: 'solid 1px grey', borderRadius: '5px', padding: '10px', margin: '10px'}}>

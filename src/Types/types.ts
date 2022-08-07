@@ -27,6 +27,23 @@ export type ProfileType = {
     fullName: string
     contacts: ContactsType
     photos: PhotosType
+    aboutMe: string
+}
+
+export type ProfileInfoType = {
+    isOwner: boolean
+    profile: ProfileType
+    status: string
+    updateStatus: (status:string) => void
+    updatePhoto: (photo: File) =>  void
+    updateProfile: (formData: ProfileType, setStatus: any, setSubmitting: any, goToViewMode: any) => void
+}
+
+export type ProfileDataFormType = {
+    editMode: boolean
+    profile: ProfileType
+    handleSubmit: (formData: ProfileType, setStatus: any, setSubmitting: any, goToViewMode: any) => void
+    goToViewMode: () => void
 }
 
 export type UserType = {
@@ -56,3 +73,4 @@ export type LoginFormDataType = {
     rememberMe: boolean
     captcha: string
 }
+

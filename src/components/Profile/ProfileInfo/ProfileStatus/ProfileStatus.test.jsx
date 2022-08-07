@@ -12,6 +12,7 @@ describe('ProfileStatus component', () => {
     test('after creation <span> should be displayed', () => {
         const component = create(<ProfileStatus status='Test status'/>)
         const root = component.root
+        // eslint-disable-next-line testing-library/await-async-query
         let span = root.findByType('span')
         expect(span).not.toBeNull()
     })
@@ -19,6 +20,7 @@ describe('ProfileStatus component', () => {
         const component = create(<ProfileStatus status='Test status'/>)
         const root = component.root
         expect(() =>{
+            // eslint-disable-next-line testing-library/await-async-query
             let input = root.findByType('input')
         }).toThrow()
     })

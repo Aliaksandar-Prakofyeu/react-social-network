@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import s from '../ProfileInfo.module.css'
 import {ErrorMessageWrapper} from "../../../common/ErrorMessageWrapper/ErrorMessageWrapper";
 import {Button, Dialog, DialogContent, DialogTitle} from "@mui/material";
+import {ProfileDataFormType, ProfileType} from "../../../../Types/types";
 
 const validationSchema = Yup.object().shape({
 
@@ -25,7 +26,7 @@ const validationSchema = Yup.object().shape({
 
 });
 
-let contactsForm = (name) => {
+let contactsForm = (name: string) => {
     return (
         <div key={name} className={s.contactItem}>
             <div>
@@ -43,8 +44,7 @@ let contactsForm = (name) => {
         </div>);
 }
 
-
-const ProfileDataForm = (props) => {
+const ProfileDataForm: React.FC<ProfileDataFormType> = (props) => {
 
     let {editMode, profile, handleSubmit, goToViewMode} = props;
 
@@ -78,7 +78,7 @@ const ProfileDataForm = (props) => {
                     let {status, isSubmitting} = propsF;
 
                     return (
-                        <Dialog open={editMode} >
+                        <Dialog open={editMode}>
                             <DialogTitle>Change profile data</DialogTitle>
                             <DialogContent>
                                 <Form>
@@ -179,13 +179,6 @@ const ProfileDataForm = (props) => {
                     )
                 }}
             </Formik>
-
-
-            <div>
-                < br/>
-            </div>
-
-
         </div>)
 }
 

@@ -9,9 +9,16 @@ import {
     WebAsset,
     YouTube
 } from "@mui/icons-material";
+import {ContactsType, ProfileType} from "../../../../Types/types";
+import React from "react";
 
+type ProfileDataType = {
+    profile: ProfileType
+    isOwner: boolean
+    goToEditMode: () => void
+}
 
-const ProfileData = ({profile, isOwner, goToEditMode}) => {
+const ProfileData: React.FC<ProfileDataType> = ({profile, isOwner, goToEditMode}) => {
     return (
         <Box>
             <Stack direction={"column"} spacing={1}>
@@ -26,7 +33,7 @@ const ProfileData = ({profile, isOwner, goToEditMode}) => {
                 <Typography sx={{fontWeight: "bold"}}> About me : {profile.aboutMe}</Typography>
                 <Divider orientation={"horizontal"} flexItem/>
                 <Typography sx={{fontWeight: "bold"}}>Contacts: {Object.keys(profile.contacts).map(key => {
-                    return <Contact key={key} contactName={key} contactValue={profile.contacts[key]}/>
+                    return <Contact key={key} contactName={key} contactValue={profile.contacts[key as keyof ContactsType]}/>
                 })}</Typography>
                 {isOwner && <Button variant={"contained"} onClick={goToEditMode}>Edit profile</Button>}
             </Stack>
@@ -36,8 +43,13 @@ const ProfileData = ({profile, isOwner, goToEditMode}) => {
 
 };
 
+type ContactType = {
+    contactName: string
+    contactValue: string
+}
 
-const Contact = ({contactName, contactValue}) => {
+
+const Contact: React.FC<ContactType> = ({contactName, contactValue}) => {
     return (
         <Typography display={"flex"} alignItems={"center"} padding={"10px"} margin={"5px"} sx={{maxWidth: "450px", marginLeft: "60px"}}>{
             contactName === "facebook" ? <Facebook fontSize={"large"} /> :

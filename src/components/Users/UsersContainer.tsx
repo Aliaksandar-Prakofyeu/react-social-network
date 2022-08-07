@@ -28,7 +28,7 @@ type OwnPropsType = {
 }
 
 type MapStatePropsType = {
-    currentPage: number
+    currentPage: any
     pageSize: number
     isFetching: boolean
     users: Array<UserType>
@@ -61,7 +61,6 @@ class UsersContainer extends React.Component<PropsType> {
 
     render() {
         return <>
-            <Typography variant='h2'>{this.props.pageTitle}</Typography>
             {this.props.isFetching ? <Preloader/> : null}
             <Users
                 pageSize={this.props.pageSize}
@@ -86,6 +85,7 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
         followingInProgress: getFollowingInProgress(state),
     }
 };
+
 
 
 // @ts-ignore

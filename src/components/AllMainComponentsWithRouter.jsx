@@ -17,11 +17,11 @@ const AllMainComponentsWithRouter = () => {
     return (
         <Box  flex={4} p={2}>
             <Routes>
-                <Route path='/dialogs/*' element={<DialogsContainer/>}/>
+                <Route path='/dialogs/*' element={<DialogsContainer pageTitle={'Dialogs'}/>}/>
                 <Route path='/profile/*' element={<ProfileContainer/>}/>
                 <Route path='/profile/:userId' element={<ProfileContainer/>}/>
-                <Route path='/login' element={<Login/>}/>
-                <Route path='/users' element={<UsersContainer pageTitle='Samurais'/>}/>
+                <Route path='/login' element={<Login pageTitle={'Log in'}/>}/>
+                <Route path='/users' element={<UsersContainer pageTitle={'Samurais'}/>}/>
                 <Route path='/news' element={<News/>}/>
                 <Route path='/music' element={<Music/>}/>
                 <Route path='/settings' element={<Settings/>}/>
