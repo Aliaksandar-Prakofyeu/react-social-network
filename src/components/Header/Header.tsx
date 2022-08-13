@@ -44,7 +44,7 @@ const Header: React.FC<HeaderType> = (props) => {
                                 onClick={handleMenu}
                                 color="inherit"
                             >
-                                <Typography variant={'h5'} component={'span'}>{props.login}</Typography>
+                                <Typography sx={{fontSize: '20px', fontWeight: 'bold'}} component={'span'}>{props.login}</Typography>
                             </IconButton>
                             <Menu
                                 id="menu-appbar"

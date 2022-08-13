@@ -1,5 +1,7 @@
-import {profileAPI} from "../api/api";
+import {profileAPI, ResultCodesEnum} from "../api/api";
 import {PhotosType, PostType, ProfileType} from "../Types/types";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "./reduxStore";
 
 const ADD_POST = 'react-social-network/profile/ADD-POST';
 const DELETE_POST = 'react-social-network/profile/DELETE-POST';
@@ -19,7 +21,9 @@ let initialState = {
 
 type InitialStateType = typeof initialState
 
-const profileReducer = (state = initialState, action: any): InitialStateType => {
+type ActionsType = AddPostActionType | SetUserProfileType | SetUserStatusType | SetUserPhotoType | DeletePostType
+
+const profileReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case ADD_POST: {
             return {
@@ -43,7 +47,8 @@ const profileReducer = (state = initialState, action: any): InitialStateType => 
             return state;
     }
 
-};
+}
+
 
 type AddPostActionType = {
     type: typeof ADD_POST
@@ -64,7 +69,7 @@ type SetUserStatusType = {
     status: string
 }
 
-export const setUserStatus = (status: string): SetUserStatusType=> ({type: SET_STATUS, status})
+export const setUserStatus = (status: string): SetUserStatusType => ({type: SET_STATUS, status})
 
 type SetUserPhotoType = {
     type: typeof SET_PHOTO
@@ -80,47 +85,51 @@ type DeletePostType = {
 
 export const deletePost = (postId: number): DeletePostType => ({type: DELETE_POST, postId})
 
-export const getProfile = (userId:number) => async (dispatch: any) => {
-    const response = await profileAPI.getProfile(userId);
-    dispatch(setUserProfile(response.data));
+type ThunkType = ThunkAction<Promise<void>, AppStateType, any, ActionsType>
+
+export const getProfile = (userId: number): ThunkType => async (dispatch) => {
+    const getProfileData = await profileAPI.getProfile(userId);
+    dispatch(setUserProfile(getProfileData));
 }
 
-export const getStatus = (userId: number) => async (dispatch: any) => {
-    const response = await profileAPI.getStatus(userId);
-    dispatch(setUserStatus(response.data));
+export const getStatus = (userId: number): ThunkType => async (dispatch) => {
+    const getStatusData = await profileAPI.getStatus(userId);
+    dispatch(setUserStatus(getStatusData));
 }
 
-export const updateStatus = (status: string) => async (dispatch: any) => {
-    const response = await profileAPI.updateStatus(status);
-    if (response.data.resultCode === 0) {
+export const updateStatus = (status: string): ThunkType => async (dispatch) => {
+    const updateStatusData = await profileAPI.updateStatus(status);
+    if (updateStatusData.resultCode === ResultCodesEnum.Success) {
         dispatch(setUserStatus(status))
     }
 }
 
-export const updatePhoto = (photo: PhotosType) => async (dispatch: any) => {
-    const response = await profileAPI.updatePhoto(photo);
-    if (response.data.resultCode === 0) {
-        dispatch(setUserPhoto(response.data.data.photos))
+export const updatePhoto = (photo: PhotosType): ThunkType => async (dispatch) => {
+    const updatePhotoData = await profileAPI.updatePhoto(photo);
+    if (updatePhotoData.resultCode === ResultCodesEnum.Success) {
+        dispatch(setUserPhoto(updatePhotoData.data.photos))
     }
 }
 
 
-export const updateProfile = (formData: any, setStatus: any, setSubmitting: any, goToViewMode: any) => async (dispatch: any, getState: any) => {
-
-    const response = await profileAPI.updateProfile(formData);
-
-    let resultCode = response.data.resultCode;
-
-    if (resultCode === 0) {
-        const userId = getState().auth.id;
-        goToViewMode();
-        dispatch(getProfile(userId));
+export const updateProfile = (formData: ProfileType,
+                              setStatus: (error: string) => void,
+                              setSubmitting: (boolean: boolean) => void,
+                              goToViewMode: () => void): ThunkType => async (dispatch, getState) => {
+    const updateProfileData = await profileAPI.updateProfile(formData)
+    let resultCode = updateProfileData.resultCode;
+    if (resultCode === ResultCodesEnum.Success) {
+        const userId = getState().auth.userId
+        goToViewMode()
+        if (userId){
+            await dispatch(getProfile(userId))
+        }
     } else {
-        let textError = `${response.data.messages.join(', ')}`;
-        setStatus(textError);
-        setSubmitting(false);
+        let textError = updateProfileData.messages.length > 0 ? updateProfileData.messages[0] : 'Some error'
+        setStatus(textError)
+        setSubmitting(false)
     }
 }
 
 
-export default profileReducer;
+export default profileReducer

@@ -1,5 +1,6 @@
-import React from 'react'
+import React, {ChangeEvent} from 'react'
 import {Pagination} from '@mui/material';
+import {UnknownFunction} from "reselect/es/types";
 
 type PropsType ={
     totalItemsCount: number
@@ -10,12 +11,12 @@ type PropsType ={
 const Paginator: React.FC<PropsType> = ({totalItemsCount, pageSize, onPageChanged}) => {
     let pagesCount = Math.ceil(totalItemsCount / pageSize)
 
-    const handleChange= (p: any) => {
-        onPageChanged(p)
+    const handleChange= (event:  React.ChangeEvent<unknown> ,page: number) => {
+        onPageChanged(page)
     }
 
     return (
-        <Pagination count={pagesCount} onChange={handleChange} showFirstButton showLastButton/>
+        <Pagination count={pagesCount}  onChange={handleChange} showFirstButton showLastButton/>
     )
 }
 

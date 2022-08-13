@@ -1,11 +1,21 @@
 import React from "react";
 
-import {ErrorMessage, Field, FieldArray, Form, Formik} from "formik";
+import {useFormik} from "formik";
 import * as Yup from "yup";
 import s from '../ProfileInfo.module.css'
-import {ErrorMessageWrapper} from "../../../common/ErrorMessageWrapper/ErrorMessageWrapper";
-import {Button, Dialog, DialogContent, DialogTitle} from "@mui/material";
-import {ProfileDataFormType, ProfileType} from "../../../../Types/types";
+import {
+    Alert,
+    Box,
+    Button,
+    Dialog,
+    DialogContent,
+    DialogTitle,
+    Stack,
+    Switch,
+    TextField,
+    Typography
+} from "@mui/material";
+import {ProfileDataFormType} from "../../../../Types/types";
 
 const validationSchema = Yup.object().shape({
 
@@ -26,24 +36,6 @@ const validationSchema = Yup.object().shape({
 
 });
 
-let contactsForm = (name: string) => {
-    return (
-        <div key={name} className={s.contactItem}>
-            <div>
-                <b>{name}</b>:
-            </div>
-
-            <div>
-                <Field
-                    name={`contacts.${name}`}
-                    type={'text'}
-                    id={name}
-                    placeholder={name}
-                />
-            </div>
-        </div>);
-}
-
 const ProfileDataForm: React.FC<ProfileDataFormType> = (props) => {
 
     let {editMode, profile, handleSubmit, goToViewMode} = props;
@@ -60,126 +52,87 @@ const ProfileDataForm: React.FC<ProfileDataFormType> = (props) => {
     })
     console.log(objectFromApiCopy)
 
-    return (
+    const formik = useFormik({
+        initialValues: objectFromApiCopy,
+        validationSchema: validationSchema,
+        onSubmit: (values, bagWithMethods) => {
+            let {setStatus, setSubmitting} = bagWithMethods;
 
-        <div>
+            handleSubmit(values, setStatus, setSubmitting, goToViewMode);
+        }
+    })
+    let contactsForm = (name: string) => {
+        return (
+            <div key={name} className={s.contactItem}>
+                <TextField
+                    label={name}
+                    name={`contacts.${name}`}
+                    id={name}
+                    placeholder={name}
+                    onChange={formik.handleChange}/>
+            </div>);
+    }
+    return <Dialog open={editMode} fullWidth
+                   maxWidth="sm">
+        <DialogTitle>Change profile data</DialogTitle>
+        <DialogContent>
+            <form onSubmit={formik.handleSubmit}>
+                <Stack direction={'column'} spacing={2} >
 
-            <Formik
-                initialValues={objectFromApiCopy}
-                validationSchema={validationSchema}
-                onSubmit={(values, bagWithMethods) => {
-                    let {setStatus, setSubmitting} = bagWithMethods;
+                    <TextField name='fullName'
+                               label='Full name'
+                               placeholder='Alex Jones'
+                               value={formik.values.fullName}
+                               onChange={formik.handleChange}
+                    />
 
-                    handleSubmit(values, setStatus, setSubmitting, goToViewMode);
-                }}
-            >
-                {(propsF) => {
+                    <Box>
+                        <Switch value={formik.values.lookingForAJob}/>
+                        <Typography component="label">Looking for a job</Typography>
+                    </Box>
 
-                    let {status, isSubmitting} = propsF;
+                    <TextField label={'My Skills'}
+                               placeholder={'Type here'}
+                               minRows={3}
+                               multiline
+                               name={'lookingForAJobDescription'}
+                               value={formik.values.lookingForAJobDescription}
+                               onChange={formik.handleChange}
+                    />
 
-                    return (
-                        <Dialog open={editMode}>
-                            <DialogTitle>Change profile data</DialogTitle>
-                            <DialogContent>
-                                <Form>
+                    <TextField label={'About me'}
+                               placeholder={'Type here'}
+                               minRows={3}
+                               multiline
+                               name={'aboutMe'}
+                               value={formik.values.aboutMe}
+                               onChange={formik.handleChange}
+                    />
 
-                                    <div>
-                                        <Field
-                                            name={'fullName'}
-                                            type={'text'}
-                                            placeholder={'Full name'}
-                                        />
-                                    </div>
-                                    <ErrorMessage name="fullName">
-                                        {ErrorMessageWrapper}
-                                    </ErrorMessage>
+                    <Stack direction={"column"} spacing={2} >
+                        <Typography>Contacts:</Typography>
+                        {arrayWithNames.map(name => contactsForm(name))}
+                    </Stack>
 
-                                    <div>
-                                        < br/>
-                                    </div>
+                    {formik.status && <Alert severity="error">{formik.status}</Alert>}
 
-                                    <div>
-                                        <Field
-                                            name={'lookingForAJob'}
-                                            type={'checkbox'}
-                                            id='lookingForAJob'/>
-                                        <label htmlFor={'lookingForAJob'}>
-                                            <b> Looking for a job</b> </label>
-                                    </div>
+                    <Button  variant={"contained"} type={'submit'}
+                             disabled={formik.isSubmitting}
+                    >{formik.isSubmitting ? "Please wait..." : "Save"}
+                    </Button>
 
-                                    <div>
-                                        < br/>
-                                    </div>
+                    <Button variant={"contained"} sx={{color: "red"}} onClick={goToViewMode}
+                            type={'button'}
+                            className={s.cancelButton}> Cancel
+                    </Button>
+                </Stack>
 
-                                    <div>
-                                        <Field
-                                            name={'lookingForAJobDescription'}
-                                            as={'textarea'}
-                                            placeholder={'My professional skills'}
-                                        />
-                                    </div>
-                                    <ErrorMessage name="lookingForAJobDescription">
-                                        {ErrorMessageWrapper}
-                                    </ErrorMessage>
 
-                                    <div>
-                                        < br/>
-                                    </div>
-
-                                    <div>
-                                        <Field
-                                            name={'aboutMe'}
-                                            as={'textarea'}
-                                            placeholder={'About me'}
-                                        />
-                                    </div>
-                                    <ErrorMessage name="aboutMe">
-                                        {ErrorMessageWrapper}
-                                    </ErrorMessage>
-
-                                    <div>
-                                        < br/>
-                                    </div>
-
-                                    <div>
-                                        <b>Contacts</b>:
-                                    </div>
-
-                                    <FieldArray
-                                        name="contacts"
-                                        render={() => (
-                                            <div>
-                                                {arrayWithNames.map(name => contactsForm(name))}
-                                            </div>
-                                        )}
-                                    />
-
-                                    <div>
-                                        < br/>
-                                    </div>
-
-                                    {status &&
-                                        <div className={s.validationError}>
-                                            <b> {status} - with setStatus </b>
-                                        </div>}
-
-                                    <Button variant={"text"} type={'submit'}
-                                            disabled={isSubmitting}
-                                    >{isSubmitting ? "Please wait..." : "Save"}
-                                    </Button>
-
-                                    <Button variant={"text"} sx={{color: "red"}} onClick={goToViewMode}
-                                            type={'button'}
-                                            className={s.cancelButton}> Cancel
-                                    </Button>
-
-                                </Form>
-                            </DialogContent>
-                        </Dialog>
-                    )
-                }}
-            </Formik>
-        </div>)
+            </form>
+        </DialogContent>
+    </Dialog>
 }
+
+
 
 export default ProfileDataForm;

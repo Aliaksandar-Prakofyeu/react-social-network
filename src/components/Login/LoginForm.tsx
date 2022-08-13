@@ -1,7 +1,7 @@
 import React from "react";
 import {useFormik} from "formik";
 import * as yup from "yup";
-import {Box, Button, Stack, Switch, TextField, Typography} from "@mui/material";
+import {Alert, Box, Button, Stack, Switch, TextField, Typography} from "@mui/material";
 import {LoginFormDataType} from "../../Types/types";
 
 const validationSchema = yup.object({
@@ -14,9 +14,8 @@ const validationSchema = yup.object({
 
 
 
-
 type LoginFormType = {
-    handleSubmit: (props: LoginFormDataType) => void
+    handleSubmit: (props: LoginFormDataType, setStatus: any, setSubmitting: any) => void
     captchaUrl: string | null
 }
 
@@ -30,11 +29,12 @@ const LoginForm: React.FC<LoginFormType> = (props) => {
             captcha: ''
         },
         validationSchema: validationSchema,
-        onSubmit: (values) => {
-            handleSubmit(values)
+        onSubmit: (values,bagWithMethods) => {
+            let {setStatus, setSubmitting} = bagWithMethods
+            handleSubmit(values, setStatus, setSubmitting)
         }
     })
-    return (<form onSubmit={formik.handleSubmit}>
+    return  ( <form onSubmit={formik.handleSubmit}>
         <Stack direction={"column"} alignItems={"stretch"} spacing={2} sx={{maxWidth: "400px"}}>
             <Typography align={"center"} flex={1} variant={"h3"}>Log in</Typography>
             <TextField sx={{flex:2}}
@@ -69,6 +69,7 @@ const LoginForm: React.FC<LoginFormType> = (props) => {
                            onChange={formik.handleChange}
                 />
             </Stack>}
+            {formik.status && <Alert severity="error">{formik.status}</Alert>}
             <Button sx={{flex:2}} variant={"contained"} type={"submit"}>Log In</Button>
         </Stack>
 

@@ -7,9 +7,6 @@ import {Box} from '@mui/material'
 import {AppStateType} from '../../redux/reduxStore'
 import {LoginFormDataType} from "../../Types/types";
 
-type OwnPropsType = {
-    pageTitle: string
-}
 
 type MapStateType = {
     captchaUrl: string | null
@@ -17,18 +14,18 @@ type MapStateType = {
 }
 
 type MapDispatchType = {
-    logIn: (email: string, password: string, rememberMe: boolean, captcha: any) => void
+    logIn: (email: string, password: string, rememberMe: boolean, captcha: any, setStatus: any, setSubmitting: any) => void
     logOut: () => void
 }
 
 
-type LoginType = OwnPropsType & MapStateType & MapDispatchType
+type LoginType =  MapStateType & MapDispatchType
 
 
 
 const Login: React.FC<LoginType> = (props) => {
-    const handleSubmit = (formData: LoginFormDataType) => {
-        props.logIn(formData.email, formData.password, formData.rememberMe , formData.captcha);
+    const handleSubmit = (formData: LoginFormDataType, setStatus: any, setSubmitting: any) => {
+        props.logIn(formData.email, formData.password, formData.rememberMe , formData.captcha,setStatus , setSubmitting );
     }
     if (props.isAuth) {
         return (<Navigate to={`/profile`}/>)
@@ -39,9 +36,9 @@ const Login: React.FC<LoginType> = (props) => {
         </Box>
         )
 }
-const mapStateToProps = (state: AppStateType) => ({
+const mapStateToProps = (state: AppStateType): MapStateType => ({
     captchaUrl: state.auth.captchaUrl,
     isAuth: state.auth.isAuth
 })
 
-export default connect<MapStateType, MapDispatchType,OwnPropsType, AppStateType>(mapStateToProps, {logIn, logOut})(Login)
+export default connect<MapStateType, MapDispatchType, {} , AppStateType>(mapStateToProps, {logIn, logOut})(Login)

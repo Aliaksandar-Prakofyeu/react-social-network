@@ -31,16 +31,17 @@ const ProfileInfo: React.FC<ProfileInfoType> = ({isOwner, profile, status, updat
     return (
         <Box>
             <Stack direction={"row"} spacing={2} alignItems={"center"} sx={{marginTop: "20px", marginBottom: "20px"}}>
-                {isOwner ? <IconButton  sx={{flex: 2,width:"150px"}} color="primary" aria-label="upload picture" component="label">
+                <Box flex={1}>
+                    {isOwner ? <IconButton  sx={{width:"150px"}} color="primary" aria-label="upload picture" component="label">
                     <input hidden type={"file"} onChange={onMainPhotoSelected}/>
                     <Avatar  src={profile.photos.large != null ? profile.photos.large : userPhoto}
-                            alt={'Avatar'}
-                            sx={{width:"150px", height:"150px"}}/>
+                             alt={'Avatar'}
+                             sx={{width:"150px", height:"150px"}}/>
                 </IconButton> : <Avatar  src={profile.photos.large != null ? profile.photos.large : userPhoto}
-                    alt={'Avatar'}
-                    sx={{flex: 2,width:"150px", height:"150px"}}/>}
-
-                <Stack direction={"column"} flex={4} spacing={1} alignItems={"left"}>
+                                         alt={'Avatar'}
+                                         sx={{flex: 2,width:"150px", height:"150px"}}/>}
+                </Box>
+                <Stack direction={"column"} flex={5} spacing={1} alignItems={"left"}>
                     <Typography variant={"h6"}>{profile.fullName}</Typography>
                     <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
                 </Stack>

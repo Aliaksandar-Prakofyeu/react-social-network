@@ -38,9 +38,7 @@ const ProfileData: React.FC<ProfileDataType> = ({profile, isOwner, goToEditMode}
                 {isOwner && <Button variant={"contained"} onClick={goToEditMode}>Edit profile</Button>}
             </Stack>
         </Box>
-
     )
-
 };
 
 type ContactType = {
