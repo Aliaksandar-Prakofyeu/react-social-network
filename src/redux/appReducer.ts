@@ -1,6 +1,6 @@
-import {getAuth} from "./authReducer";
-import {ThunkAction} from "redux-thunk";
-import {AppStateType} from "./reduxStore";
+import {getAuth} from './authReducer'
+import {ThunkAction} from 'redux-thunk'
+import {AppStateType} from './reduxStore'
 
 const INITIALIZE_SUCCESS = 'react-social-network/app/INITIALIZE-SUCCESS'
 
@@ -39,4 +39,4 @@ export const initializeApp = (): ThunkType => async (dispatch) => {
 
 
 
-export default appReducer;
+export default appReducer

@@ -1,58 +1,58 @@
-import {Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
-import {Feed, Group, Message, MusicNote, Person, Settings} from "@mui/icons-material";
+import {Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText} from '@mui/material'
+import {Feed, Group, Message, MusicNote, Person, Settings} from '@mui/icons-material'
 
 const Nav = () => {
 
     return (
-        <Box flex={1} p={2} sx={{display: {xs: "none", sm: "block"}}}>
-            <Box position={"fixed"}>
+        <Box flex={1} p={2} sx={{display: {xs: 'none', sm: 'block'}}}>
+            <Box position={'fixed'}>
                 <List>
                     <ListItem>
-                        <ListItemButton component={"a"} href={"/react-social-network/profile"}>
+                        <ListItemButton component={'a'} href={'/react-social-network/profile'}>
                             <ListItemIcon>
                                 <Person/>
                             </ListItemIcon>
-                            <ListItemText primary={"Profile"}/>
+                            <ListItemText primary={'Profile'}/>
                         </ListItemButton>
                     </ListItem>
                     <ListItem>
-                        <ListItemButton component={"a"} href={"/react-social-network/users"}>
+                        <ListItemButton component={'a'} href={'/react-social-network/users'}>
                             <ListItemIcon>
                                 <Group/>
                             </ListItemIcon>
-                            <ListItemText primary={"Users"}/>
+                            <ListItemText primary={'Users'}/>
                         </ListItemButton>
                     </ListItem>
                     <ListItem>
-                        <ListItemButton component={"a"} href={"/react-social-network/dialogs"}>
+                        <ListItemButton component={'a'} href={'/react-social-network/dialogs'}>
                             <ListItemIcon>
                                 <Message/>
                             </ListItemIcon>
-                            <ListItemText primary={"Dialogs"}/>
+                            <ListItemText primary={'Dialogs'}/>
                         </ListItemButton>
                     </ListItem>
                     <ListItem>
-                        <ListItemButton component={"a"} href={"/react-social-network/news"}>
+                        <ListItemButton component={'a'} href={'/react-social-network/news'}>
                             <ListItemIcon>
                                 <Feed/>
                             </ListItemIcon>
-                            <ListItemText primary={"News"}/>
+                            <ListItemText primary={'News'}/>
                         </ListItemButton>
                     </ListItem>
                     <ListItem>
-                        <ListItemButton component={"a"} href={"/react-social-network/music"}>
+                        <ListItemButton component={'a'} href={'/react-social-network/music'}>
                             <ListItemIcon>
                                 <MusicNote/>
                             </ListItemIcon>
-                            <ListItemText primary={"Music"}/>
+                            <ListItemText primary={'Music'}/>
                         </ListItemButton>
                     </ListItem>
                     <ListItem>
-                        <ListItemButton component={"a"} href={"/react-social-network/settings"}>
+                        <ListItemButton component={'a'} href={'/react-social-network/settings'}>
                             <ListItemIcon>
                                 <Settings/>
                             </ListItemIcon>
-                            <ListItemText primary={"Settings"}/>
+                            <ListItemText primary={'Settings'}/>
                         </ListItemButton>
                     </ListItem>
 
@@ -85,7 +85,7 @@ const Nav = () => {
             </MenuList>
         </nav>*/
 
-    );
+    )
 }
 
-export default Nav;
+export default Nav

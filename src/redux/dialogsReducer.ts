@@ -53,6 +53,9 @@ type AddMessageActionType = {
     newMessageText: string
 }
 
-export const addMessageActionCreator = (newMessageText: string): AddMessageActionType => ({type: SEND_MESSAGE, newMessageText})
+export const addMessageActionCreator = (newMessageText: string): AddMessageActionType => ({
+    type: SEND_MESSAGE,
+    newMessageText
+})
 
 export default dialogsReducer;

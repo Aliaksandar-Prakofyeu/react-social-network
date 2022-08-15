@@ -1,6 +1,5 @@
-import React, {ChangeEvent} from 'react'
-import {Pagination} from '@mui/material';
-import {UnknownFunction} from "reselect/es/types";
+import React from 'react'
+import {Pagination} from '@mui/material'
 
 type PropsType ={
     totalItemsCount: number

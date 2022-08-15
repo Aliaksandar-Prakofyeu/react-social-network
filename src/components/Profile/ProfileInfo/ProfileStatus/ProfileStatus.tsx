@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent} from 'react'
 
 type PropsType = {
     status: string
@@ -65,4 +65,4 @@ class ProfileStatus extends React.Component<PropsType, StateType> {
     }
 }
 
-export default ProfileStatus;
+export default ProfileStatus

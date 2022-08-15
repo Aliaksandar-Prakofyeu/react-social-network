@@ -1,12 +1,12 @@
-import preloader from '../../../assets/images/preloader.svg';
-import React from "react";
-import {Box} from "@mui/material";
+import preloader from '../../../assets/images/preloader.svg'
+import React from 'react'
+import {Box} from '@mui/material'
 
 
-let Preloader = (props) => {
+let Preloader = () => {
     return (
         <Box>
-            <img src={preloader}/>
+            <img alt='preloader' src={preloader}/>
         </Box>
         )
 }

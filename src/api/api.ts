@@ -1,10 +1,10 @@
-import axios from "axios";
-import {LoginFormDataType, PhotosType, ProfileDataFormType, ProfileType, UserType} from "../Types/types";
+import axios from 'axios'
+import {PhotosType, ProfileType, UserType} from '../Types/types'
 
 const instance = axios.create({
     withCredentials: true,
     baseURL: `https://social-network.samuraijs.com/api/1.0/`,
-    headers: {"API-KEY": "134f5454-c2c5-408a-8c98-72cb0999cc31"}
+    headers: {'API-KEY': '134f5454-c2c5-408a-8c98-72cb0999cc31'}
 })
 
 export enum ResultCodesEnum {
@@ -92,8 +92,8 @@ export const profileAPI = {
         return instance.put<ApiStatusResponse>(`/profile/status`, {status}).then(res => res.data)
     },
     updatePhoto(photo: any) {
-        const formData = new FormData();
-        formData.append("image", photo)
+        const formData = new FormData()
+        formData.append('image', photo)
         return instance.put<ApiStatusResponse<{photos: PhotosType}>>('profile/photo', formData, {
             headers: {
                 'Content-type': 'multipart/form-data'

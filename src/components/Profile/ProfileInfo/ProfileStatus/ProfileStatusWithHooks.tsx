@@ -1,5 +1,5 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
-import {Box, TextField, Typography} from "@mui/material";
+import React, {ChangeEvent, useEffect, useState} from 'react'
+import {Box, TextField, Typography} from '@mui/material'
 
 type PropsType = {
     status: string
@@ -28,8 +28,8 @@ const ProfileStatusWithHooks: React.FC<PropsType> = (props) => {
     return (
         <Box>
             {!editMode &&
-                    <Typography sx={{cursor: "pointer"}}
-                                variant="subtitle1"
+                    <Typography sx={{cursor: 'pointer'}}
+                                variant='subtitle1'
                                 onDoubleClick={activateEditMode}>{props.status || '---'}
                     </Typography>
             }
@@ -44,4 +44,4 @@ const ProfileStatusWithHooks: React.FC<PropsType> = (props) => {
     )
 }
 
-export default ProfileStatusWithHooks;
+export default ProfileStatusWithHooks

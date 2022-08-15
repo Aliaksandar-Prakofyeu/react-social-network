@@ -1,6 +1,6 @@
 import {Route, Routes} from "react-router-dom";
 import Login from "./Login/Login";
-import News from "./News/News";
+import News from "./common/NotFound/News/News";
 import Music from "./Music/Music";
 import Settings from "./Settings/Settings";
 import React from "react";

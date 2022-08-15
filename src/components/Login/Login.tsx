@@ -5,7 +5,7 @@ import {Navigate} from 'react-router'
 import LoginForm from './LoginForm'
 import {Box} from '@mui/material'
 import {AppStateType} from '../../redux/reduxStore'
-import {LoginFormDataType} from "../../Types/types";
+import {LoginFormDataType} from '../../Types/types'
 
 
 type MapStateType = {

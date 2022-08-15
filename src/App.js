@@ -1,15 +1,15 @@
-import './App.css';
-import Nav from "./components/Nav/Nav";
-import {BrowserRouter} from "react-router-dom";
-import HeaderContainer from "./components/Header/HeaderСontainer";
-import React, {Component} from "react";
-import {connect, Provider} from "react-redux";
-import {initializeApp} from "./redux/appReducer";
-import Preloader from "./components/common/Preloader/Preloader";
-import store from "./redux/reduxStore";
-import {Box, Stack} from "@mui/material";
-import AllMainComponentsWithRouter from "./components/AllMainComponentsWithRouter";
-import BottomNav from "./components/Nav/BottomNav";
+import './App.css'
+import Nav from './components/Nav/Nav'
+import {BrowserRouter} from 'react-router-dom'
+import HeaderContainer from './components/Header/HeaderСontainer'
+import React, {Component} from 'react'
+import {connect, Provider} from 'react-redux'
+import {initializeApp} from './redux/appReducer'
+import Preloader from './components/common/Preloader/Preloader'
+import store from './redux/reduxStore'
+import {Box, Stack} from '@mui/material'
+import AllMainComponentsWithRouter from './components/AllMainComponentsWithRouter'
+import BottomNav from './components/Nav/BottomNav'
 
 
 
@@ -17,17 +17,17 @@ import BottomNav from "./components/Nav/BottomNav";
 class App extends Component {
 
     catchAllUnhandledErrors = (reason, promise) =>{
-        alert("Some error occurred");
+        alert('Some error occurred')
 
     }
 
     componentDidMount() {
-        this.props.initializeApp();
-        window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
+        this.props.initializeApp()
+        window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors)
     }
 
     componentWillUnmount() {
-        window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors)
+        window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors)
     }
 
     render() {
@@ -39,7 +39,7 @@ class App extends Component {
         return (
             <Box>
                 <HeaderContainer/>
-                <Stack direction={"row"} spacing={2} justifyContent={"space-between"}>
+                <Stack direction={'row'} spacing={2} justifyContent={'space-between'}>
                     <Nav/>
                     <React.Suspense fallback={<Preloader/>}>
                         <AllMainComponentsWithRouter/>
@@ -48,7 +48,7 @@ class App extends Component {
                 </Stack>
 
             </Box>
-        );
+        )
     }
 }
 
@@ -57,7 +57,7 @@ const mapStateToProps = (state) => ({
 })
 
 
-let AppContainer = connect(mapStateToProps, {initializeApp})(App);
+let AppContainer = connect(mapStateToProps, {initializeApp})(App)
 
 let SocialNetworkApp = (props) => {
     return <BrowserRouter basename={process.env.PUBLIC_URL}>

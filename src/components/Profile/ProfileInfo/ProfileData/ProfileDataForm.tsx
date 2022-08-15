@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
-import {useFormik} from "formik";
-import * as Yup from "yup";
+import {useFormik} from 'formik'
+import * as Yup from 'yup'
 import s from '../ProfileInfo.module.css'
 import {
     Alert,
@@ -14,40 +14,40 @@ import {
     Switch,
     TextField,
     Typography
-} from "@mui/material";
-import {ProfileDataFormType} from "../../../../Types/types";
+} from '@mui/material'
+import {ProfileDataFormType} from '../../../../Types/types'
 
 const validationSchema = Yup.object().shape({
 
     fullName: Yup.string()
-        .min(2, "Must be longer than 2 characters !")
-        .max(25, "Must be shorter than 50 characters !")
-        .required("Required !"),
+        .min(2, 'Must be longer than 2 characters !')
+        .max(25, 'Must be shorter than 50 characters !')
+        .required('Required !'),
 
     lookingForAJobDescription: Yup.string()
-        .min(2, "Must be longer than 2 characters !")
-        .max(50, "Must be shorter than 50 characters !")
-        .required("Required !"),
+        .min(2, 'Must be longer than 2 characters !')
+        .max(50, 'Must be shorter than 50 characters !')
+        .required('Required !'),
 
     aboutMe: Yup.string()
-        .min(2, "Must be longer than 2 characters !")
-        .max(50, "Must be shorter than 50 characters !")
-        .required("Required !"),
+        .min(2, 'Must be longer than 2 characters !')
+        .max(50, 'Must be shorter than 50 characters !')
+        .required('Required !'),
 
-});
+})
 
 const ProfileDataForm: React.FC<ProfileDataFormType> = (props) => {
 
-    let {editMode, profile, handleSubmit, goToViewMode} = props;
+    let {editMode, profile, handleSubmit, goToViewMode} = props
 
-    let objectFromApiCopy = JSON.parse(JSON.stringify(profile));
+    let objectFromApiCopy = JSON.parse(JSON.stringify(profile))
 
-    const arrayWithNames = Object.keys(profile.contacts);
+    const arrayWithNames = Object.keys(profile.contacts)
 
     arrayWithNames.forEach((item) => {
-        let value = objectFromApiCopy.contacts[item];
+        let value = objectFromApiCopy.contacts[item]
         if (value === null) {
-            objectFromApiCopy.contacts[item] = '';
+            objectFromApiCopy.contacts[item] = ''
         }
     })
     console.log(objectFromApiCopy)
@@ -56,9 +56,9 @@ const ProfileDataForm: React.FC<ProfileDataFormType> = (props) => {
         initialValues: objectFromApiCopy,
         validationSchema: validationSchema,
         onSubmit: (values, bagWithMethods) => {
-            let {setStatus, setSubmitting} = bagWithMethods;
+            let {setStatus, setSubmitting} = bagWithMethods
 
-            handleSubmit(values, setStatus, setSubmitting, goToViewMode);
+            handleSubmit(values, setStatus, setSubmitting, goToViewMode)
         }
     })
     let contactsForm = (name: string) => {
@@ -70,10 +70,10 @@ const ProfileDataForm: React.FC<ProfileDataFormType> = (props) => {
                     id={name}
                     placeholder={name}
                     onChange={formik.handleChange}/>
-            </div>);
+            </div>)
     }
     return <Dialog open={editMode} fullWidth
-                   maxWidth="sm">
+                   maxWidth='sm'>
         <DialogTitle>Change profile data</DialogTitle>
         <DialogContent>
             <form onSubmit={formik.handleSubmit}>
@@ -88,7 +88,7 @@ const ProfileDataForm: React.FC<ProfileDataFormType> = (props) => {
 
                     <Box>
                         <Switch value={formik.values.lookingForAJob}/>
-                        <Typography component="label">Looking for a job</Typography>
+                        <Typography component='label'>Looking for a job</Typography>
                     </Box>
 
                     <TextField label={'My Skills'}
@@ -109,19 +109,19 @@ const ProfileDataForm: React.FC<ProfileDataFormType> = (props) => {
                                onChange={formik.handleChange}
                     />
 
-                    <Stack direction={"column"} spacing={2} >
+                    <Stack direction={'column'} spacing={2} >
                         <Typography>Contacts:</Typography>
                         {arrayWithNames.map(name => contactsForm(name))}
                     </Stack>
 
-                    {formik.status && <Alert severity="error">{formik.status}</Alert>}
+                    {formik.status && <Alert severity='error'>{formik.status}</Alert>}
 
-                    <Button  variant={"contained"} type={'submit'}
+                    <Button  variant={'contained'} type={'submit'}
                              disabled={formik.isSubmitting}
-                    >{formik.isSubmitting ? "Please wait..." : "Save"}
+                    >{formik.isSubmitting ? 'Please wait...' : 'Save'}
                     </Button>
 
-                    <Button variant={"contained"} sx={{color: "red"}} onClick={goToViewMode}
+                    <Button variant={'contained'} sx={{color: 'red'}} onClick={goToViewMode}
                             type={'button'}
                             className={s.cancelButton}> Cancel
                     </Button>
@@ -135,4 +135,4 @@ const ProfileDataForm: React.FC<ProfileDataFormType> = (props) => {
 
 
 
-export default ProfileDataForm;
+export default ProfileDataForm

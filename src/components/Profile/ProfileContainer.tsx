@@ -1,13 +1,13 @@
-import React from "react";
-import Profile from "./Profile";
-import {getProfile, getStatus, updatePhoto, updateProfile, updateStatus} from "../../redux/profileReducer";
-import {connect} from "react-redux";
-import {useLocation, useParams} from "react-router-dom";
-import {useNavigate} from 'react-router';
-import {withAuthRedirect} from "../hoc/withAuthRedirect";
-import {compose} from "redux";
-import {PhotosType, ProfileType} from "../../Types/types";
-import {AppStateType} from "../../redux/reduxStore";
+import React from 'react'
+import Profile from './Profile'
+import {getProfile, getStatus, updatePhoto, updateProfile, updateStatus} from '../../redux/profileReducer'
+import {connect} from 'react-redux'
+import {useLocation, useParams} from 'react-router-dom'
+import {useNavigate} from 'react-router'
+import {withAuthRedirect} from '../hoc/withAuthRedirect'
+import {compose} from 'redux'
+import {ProfileType} from '../../Types/types'
+import {AppStateType} from '../../redux/reduxStore'
 
 type MapStateType = {
     profile: ProfileType
@@ -31,9 +31,9 @@ type ProfileContainerType = MapStateType & MapDispatchType
 class ProfileContainer extends React.Component<ProfileContainerType> {
 
     refreshProfile() {
-        let userId = this.props.router.params.userId;
+        let userId = this.props.router.params.userId
         if (!userId) {
-            userId = this.props.signedUserId;
+            userId = this.props.signedUserId
         }
 
         this.props.getProfile(userId)
@@ -60,7 +60,7 @@ class ProfileContainer extends React.Component<ProfileContainerType> {
                      updatePhoto={this.props.updatePhoto}
                      updateProfile={this.props.updateProfile}
             />
-        );
+        )
     }
 }
 
@@ -69,22 +69,22 @@ let mapStateToProps = (state: AppStateType) => ({
     status: state.profilePage.status,
     signedUserId: state.auth.userId,
     isAuth: state.auth.isAuth
-});
+})
 
 function withRouter(Component: any) {
     function ComponentWithRouterProp(props: any) {
-        let location = useLocation();
-        let navigate = useNavigate();
-        let params = useParams();
+        let location = useLocation()
+        let navigate = useNavigate()
+        let params = useParams()
         return (
             <Component
                 {...props}
                 router={{location, navigate, params}}
             />
-        );
+        )
     }
 
-    return ComponentWithRouterProp;
+    return ComponentWithRouterProp
 }
 
 export default compose(

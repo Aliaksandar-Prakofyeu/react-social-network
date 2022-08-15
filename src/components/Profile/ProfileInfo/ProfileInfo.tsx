@@ -1,11 +1,11 @@
-import Preloader from "../../common/Preloader/Preloader";
-import userPhoto from "../../../assets/images/avatarPlaceholder.png";
-import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
-import React, {ChangeEvent, useState} from "react";
-import ProfileDataForm from "./ProfileData/ProfileDataForm";
-import ProfileData from "./ProfileData/ProfileData";
-import {Avatar, Box, IconButton, Stack, Typography} from "@mui/material";
-import {ProfileInfoType, ProfileType} from "../../../Types/types";
+import Preloader from '../../common/Preloader/Preloader'
+import userPhoto from '../../../assets/images/avatarPlaceholder.png'
+import ProfileStatusWithHooks from './ProfileStatus/ProfileStatusWithHooks'
+import React, {ChangeEvent, useState} from 'react'
+import ProfileDataForm from './ProfileData/ProfileDataForm'
+import ProfileData from './ProfileData/ProfileData'
+import {Avatar, Box, IconButton, Stack, Typography} from '@mui/material'
+import {ProfileInfoType, ProfileType} from '../../../Types/types'
 
 
 
@@ -25,24 +25,24 @@ const ProfileInfo: React.FC<ProfileInfoType> = ({isOwner, profile, status, updat
     }
     const handleSubmit = (formData: ProfileType, setStatus: any, setSubmitting: any, goToViewMode: any) => {
 
-        updateProfile(formData, setStatus, setSubmitting, goToViewMode);
+        updateProfile(formData, setStatus, setSubmitting, goToViewMode)
 
     }
     return (
         <Box>
-            <Stack direction={"row"} spacing={2} alignItems={"center"} sx={{marginTop: "20px", marginBottom: "20px"}}>
+            <Stack direction={'row'} spacing={2} alignItems={'center'} sx={{marginTop: '20px', marginBottom: '20px'}}>
                 <Box flex={1}>
-                    {isOwner ? <IconButton  sx={{width:"150px"}} color="primary" aria-label="upload picture" component="label">
-                    <input hidden type={"file"} onChange={onMainPhotoSelected}/>
+                    {isOwner ? <IconButton  sx={{width:'150px'}} color='primary' aria-label='upload picture' component='label'>
+                    <input hidden type={'file'} onChange={onMainPhotoSelected}/>
                     <Avatar  src={profile.photos.large != null ? profile.photos.large : userPhoto}
                              alt={'Avatar'}
-                             sx={{width:"150px", height:"150px"}}/>
+                             sx={{width:'150px', height:'150px'}}/>
                 </IconButton> : <Avatar  src={profile.photos.large != null ? profile.photos.large : userPhoto}
                                          alt={'Avatar'}
-                                         sx={{flex: 2,width:"150px", height:"150px"}}/>}
+                                         sx={{flex: 2,width:'150px', height:'150px'}}/>}
                 </Box>
-                <Stack direction={"column"} flex={5} spacing={1} alignItems={"left"}>
-                    <Typography variant={"h6"}>{profile.fullName}</Typography>
+                <Stack direction={'column'} flex={5} spacing={1} alignItems={'left'}>
+                    <Typography variant={'h6'}>{profile.fullName}</Typography>
                     <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
                 </Stack>
             </Stack>
@@ -55,7 +55,7 @@ const ProfileInfo: React.FC<ProfileInfoType> = ({isOwner, profile, status, updat
                 }} isOwner={isOwner}/>}
         </Box>
     )
-};
+}
 
 
-export default ProfileInfo;
+export default ProfileInfo

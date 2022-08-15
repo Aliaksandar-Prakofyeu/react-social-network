@@ -1,13 +1,13 @@
-import {profileAPI, ResultCodesEnum} from "../api/api";
-import {PhotosType, PostType, ProfileType} from "../Types/types";
-import {ThunkAction} from "redux-thunk";
-import {AppStateType} from "./reduxStore";
+import {profileAPI, ResultCodesEnum} from '../api/api'
+import {PhotosType, PostType, ProfileType} from '../Types/types'
+import {ThunkAction} from 'redux-thunk'
+import {AppStateType} from './reduxStore'
 
-const ADD_POST = 'react-social-network/profile/ADD-POST';
-const DELETE_POST = 'react-social-network/profile/DELETE-POST';
-const SET_USER_PROFILE = 'react-social-network/profile/SET-USER-PROFILE';
-const SET_STATUS = 'react-social-network/profile/SET-STATUS';
-const SET_PHOTO = 'react-social-network/profile/SET-PHOTO';
+const ADD_POST = 'react-social-network/profile/ADD-POST'
+const DELETE_POST = 'react-social-network/profile/DELETE-POST'
+const SET_USER_PROFILE = 'react-social-network/profile/SET-USER-PROFILE'
+const SET_STATUS = 'react-social-network/profile/SET-STATUS'
+const SET_PHOTO = 'react-social-network/profile/SET-PHOTO'
 
 let initialState = {
     posts: [
@@ -29,10 +29,10 @@ const profileReducer = (state = initialState, action: ActionsType): InitialState
             return {
                 ...state,
                 posts: [...state.posts, {id: 3, message: action.newPostText, likesCount: 0}]
-            };
+            }
         }
         case SET_USER_PROFILE: {
-            return {...state, profile: action.profile};
+            return {...state, profile: action.profile}
         }
         case SET_STATUS: {
             return {...state, status: action.status}
@@ -44,7 +44,7 @@ const profileReducer = (state = initialState, action: ActionsType): InitialState
             return {...state, posts: state.posts.filter(p => p.id !== action.postId)}
         }
         default:
-            return state;
+            return state
     }
 
 }
@@ -88,24 +88,24 @@ export const deletePost = (postId: number): DeletePostType => ({type: DELETE_POS
 type ThunkType = ThunkAction<Promise<void>, AppStateType, any, ActionsType>
 
 export const getProfile = (userId: number): ThunkType => async (dispatch) => {
-    const getProfileData = await profileAPI.getProfile(userId);
-    dispatch(setUserProfile(getProfileData));
+    const getProfileData = await profileAPI.getProfile(userId)
+    dispatch(setUserProfile(getProfileData))
 }
 
 export const getStatus = (userId: number): ThunkType => async (dispatch) => {
-    const getStatusData = await profileAPI.getStatus(userId);
-    dispatch(setUserStatus(getStatusData));
+    const getStatusData = await profileAPI.getStatus(userId)
+    dispatch(setUserStatus(getStatusData))
 }
 
 export const updateStatus = (status: string): ThunkType => async (dispatch) => {
-    const updateStatusData = await profileAPI.updateStatus(status);
+    const updateStatusData = await profileAPI.updateStatus(status)
     if (updateStatusData.resultCode === ResultCodesEnum.Success) {
         dispatch(setUserStatus(status))
     }
 }
 
 export const updatePhoto = (photo: PhotosType): ThunkType => async (dispatch) => {
-    const updatePhotoData = await profileAPI.updatePhoto(photo);
+    const updatePhotoData = await profileAPI.updatePhoto(photo)
     if (updatePhotoData.resultCode === ResultCodesEnum.Success) {
         dispatch(setUserPhoto(updatePhotoData.data.photos))
     }
@@ -117,7 +117,7 @@ export const updateProfile = (formData: ProfileType,
                               setSubmitting: (boolean: boolean) => void,
                               goToViewMode: () => void): ThunkType => async (dispatch, getState) => {
     const updateProfileData = await profileAPI.updateProfile(formData)
-    let resultCode = updateProfileData.resultCode;
+    let resultCode = updateProfileData.resultCode
     if (resultCode === ResultCodesEnum.Success) {
         const userId = getState().auth.userId
         goToViewMode()

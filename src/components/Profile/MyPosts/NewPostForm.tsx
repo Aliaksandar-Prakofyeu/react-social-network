@@ -1,6 +1,6 @@
-import {useFormik} from "formik";
-import {Button, Stack, TextField} from "@mui/material";
-import React from "react";
+import {useFormik} from 'formik'
+import {Button, Stack, TextField} from '@mui/material'
+import React from 'react'
 
 type NewPostForm = {
     addPost: (newPostText: string) => void
@@ -17,7 +17,7 @@ const NewPostForm: React.FC<NewPostForm> = (props) => {
         },
         onSubmit: (values) => {
             OnAddPost(values.newPostText)
-            values.newPostText= ""
+            values.newPostText= ''
         }
     })
     return (

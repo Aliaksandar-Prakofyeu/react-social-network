@@ -1,7 +1,7 @@
-import React from "react";
-import {AppBar, Button, IconButton, Menu, MenuItem, Toolbar, Typography} from "@mui/material";
-import {useNavigate} from "react-router";
-import {EmojiPeople} from "@mui/icons-material";
+import React from 'react'
+import {AppBar, Button, IconButton, Menu, MenuItem, Toolbar, Typography} from '@mui/material'
+import {useNavigate} from 'react-router'
+import {EmojiPeople} from '@mui/icons-material'
 
 
 
@@ -12,42 +12,42 @@ type HeaderType = {
 }
 
 const Header: React.FC<HeaderType> = (props) => {
-    let navigate = useNavigate();
+    let navigate = useNavigate()
     const routeChange = () => {
-        let path = `/login`;
-        navigate(path);
+        let path = `/login`
+        navigate(path)
     }
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = React.useState(null)
 
 
     const handleMenu = (event: any) => {
-        setAnchorEl(event.currentTarget);
-    };
+        setAnchorEl(event.currentTarget)
+    }
 
     const handleClose = () => {
-        setAnchorEl(null);
-    };
+        setAnchorEl(null)
+    }
     return (
-            <AppBar position="sticky">
+            <AppBar position='sticky'>
                 <Toolbar>
                     <EmojiPeople/>
-                    <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+                    <Typography variant='h6' component='div' sx={{flexGrow: 1}}>
                         Social Network
                     </Typography>
                     {props.isAuth ? (
                         <div>
                             <IconButton
-                                size="large"
-                                aria-label="account of current user"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
+                                size='large'
+                                aria-label='account of current user'
+                                aria-controls='menu-appbar'
+                                aria-haspopup='true'
                                 onClick={handleMenu}
-                                color="inherit"
+                                color='inherit'
                             >
                                 <Typography sx={{fontSize: '20px', fontWeight: 'bold'}} component={'span'}>{props.login}</Typography>
                             </IconButton>
                             <Menu
-                                id="menu-appbar"
+                                id='menu-appbar'
                                 anchorEl={anchorEl}
                                 anchorOrigin={{
                                     vertical: 'top',
@@ -65,20 +65,20 @@ const Header: React.FC<HeaderType> = (props) => {
                                 <MenuItem onClick={props.logOut}>Log Out</MenuItem>
                             </Menu>
                         </div>
-                    ) : (<Button onClick={routeChange} color={"inherit"}>Login</Button>)}
+                    ) : (<Button onClick={routeChange} color={'inherit'}>Login</Button>)}
                 </Toolbar>
             </AppBar>
 
         /*
                 <header className={s.header}>
-                    <img src="https://www.onlygfx.com/wp-content/uploads/2018/03/grunge-circle-2-4.png" alt={'logo'}/>
+                    <img src='https://www.onlygfx.com/wp-content/uploads/2018/03/grunge-circle-2-4.png' alt={'logo'}/>
                     <div className={s.loginBlock}>
                         {props.isAuth ? <div>{props.login} - <button onClick={props.logOut}>Log out</button></div> :
                             <NavLink to={'/login'} className={s.loginText}>Log in</NavLink>}
 
                     </div>
                 </header>*/
-    );
+    )
 }
 
-export default Header;
+export default Header
