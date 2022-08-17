@@ -1,10 +1,7 @@
-import {authAPI, ResultCodeCaptchaEnum, ResultCodesEnum, securityAPI} from '../api/api'
-import {ThunkAction} from 'redux-thunk'
-import {AppStateType, InferActionsTypes} from './reduxStore'
-
-
-
-export type InitialStateType = typeof initialState
+import {BaseThunkType, InferActionsTypes} from './reduxStore'
+import {authAPI} from "../api/authAPI";
+import {securityAPI} from "../api/securityAPI";
+import {ResultCodeCaptchaEnum, ResultCodesEnum} from "../api/apiTypes";
 
 let initialState = {
     userId: null as number | null,
@@ -14,12 +11,13 @@ let initialState = {
     captchaUrl: null as string | null //if null then captcha is not required
 }
 
+export type InitialStateType = typeof initialState
 type ActionTypes = InferActionsTypes<typeof actions>
 
 const authReducer = (state = initialState, action: ActionTypes): InitialStateType => {
     switch (action.type) {
-        case 'SET_AUTH_USER_DATA':
-        case 'GET_CAPTCHA_URL_SUCCESS': {
+        case 'RSN/AUTH/SET_AUTH_USER_DATA':
+        case 'RSN/AUTH/GET_CAPTCHA_URL_SUCCESS': {
             return {
                 ...state,
                 ...action.payload,
@@ -34,17 +32,17 @@ const authReducer = (state = initialState, action: ActionTypes): InitialStateTyp
 
 export const actions = {
     setAuthUserData: (userId: number | null, email: string | null, login: string | null, isAuth: boolean)=> ({
-        type: 'SET_AUTH_USER_DATA',
+        type: 'RSN/AUTH/SET_AUTH_USER_DATA',
         payload: {userId, email, login, isAuth}
     } as const),
 
     getCaptchaUrlSuccess: (captchaUrl: string | null)=> ({
-        type: 'GET_CAPTCHA_URL_SUCCESS',
+        type: 'RSN/AUTH/GET_CAPTCHA_URL_SUCCESS',
         payload: {captchaUrl}
     } as const)
 }
 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, any, ActionTypes>
+type ThunkType = BaseThunkType<ActionTypes>
 
 export const getAuth = (): ThunkType => async (dispatch) => {
     const getAuthData = await authAPI.getAuth()

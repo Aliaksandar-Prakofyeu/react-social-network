@@ -36,7 +36,7 @@ type ActionTypes = InferActionsTypes<typeof actions>
 
 const dialogsReducer = (state = initialState, action: ActionTypes): InitialStateType => {
     switch (action.type) {
-        case 'SEND_MESSAGE': {
+        case 'RSN/DIALOGS/SEND_MESSAGE': {
             return {
                 ...state,
                 messages: [...state.messages, {id: 6, message: action.newMessageText}],
@@ -50,7 +50,7 @@ const dialogsReducer = (state = initialState, action: ActionTypes): InitialState
 
 export const actions = {
     addMessageActionCreator: (newMessageText: string) => ({
-        type: 'SEND_MESSAGE',
+        type: 'RSN/DIALOGS/SEND_MESSAGE',
         newMessageText
     } as const)
 }

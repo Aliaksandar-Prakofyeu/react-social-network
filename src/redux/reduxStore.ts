@@ -1,9 +1,9 @@
-import {createStore, compose, applyMiddleware, combineReducers} from 'redux'
+import {createStore, compose, applyMiddleware, combineReducers, Action} from 'redux'
 import profileReducer from './profileReducer'
 import dialogsReducer from './dialogsReducer'
 import sidebarReducer from './sidebarReducer'
 import usersReducer from './usersReducer'
-import thunkMiddleware from 'redux-thunk'
+import thunkMiddleware, {ThunkAction} from 'redux-thunk'
 import {reducer as formReducer} from 'redux-form'
 import authReducer from './authReducer'
 import appReducer from './appReducer'
@@ -21,6 +21,8 @@ let rootReducer = combineReducers({
     form: formReducer,
     app: appReducer
 })
+
+export type BaseThunkType<A extends Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A>
 
 type PropertiesTypes<T> = T extends {[key: string]: infer U} ? U : never
 
