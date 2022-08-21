@@ -69,7 +69,8 @@ const ProfileDataForm: React.FC<ProfileDataFormType> = (props) => {
                     name={`contacts.${name}`}
                     id={name}
                     placeholder={name}
-                    onChange={formik.handleChange}/>
+                    onChange={formik.handleChange}
+                />
             </div>)
     }
     return <Dialog open={editMode} fullWidth
@@ -77,7 +78,7 @@ const ProfileDataForm: React.FC<ProfileDataFormType> = (props) => {
         <DialogTitle>Change profile data</DialogTitle>
         <DialogContent>
             <form onSubmit={formik.handleSubmit}>
-                <Stack direction={'column'} spacing={2} >
+                <Stack direction={'column'} spacing={2}>
 
                     <TextField name='fullName'
                                label='Full name'
@@ -109,15 +110,15 @@ const ProfileDataForm: React.FC<ProfileDataFormType> = (props) => {
                                onChange={formik.handleChange}
                     />
 
-                    <Stack direction={'column'} spacing={2} >
+                    <Stack direction={'column'} spacing={2}>
                         <Typography>Contacts:</Typography>
                         {arrayWithNames.map(name => contactsForm(name))}
                     </Stack>
 
                     {formik.status && <Alert severity='error'>{formik.status}</Alert>}
 
-                    <Button  variant={'contained'} type={'submit'}
-                             disabled={formik.isSubmitting}
+                    <Button variant={'contained'} type={'submit'}
+                            disabled={formik.isSubmitting}
                     >{formik.isSubmitting ? 'Please wait...' : 'Save'}
                     </Button>
 
@@ -132,7 +133,6 @@ const ProfileDataForm: React.FC<ProfileDataFormType> = (props) => {
         </DialogContent>
     </Dialog>
 }
-
 
 
 export default ProfileDataForm

@@ -6,17 +6,21 @@ import React, {Component} from 'react'
 import {connect, Provider} from 'react-redux'
 import {initializeApp} from './redux/appReducer'
 import Preloader from './components/common/Preloader/Preloader'
-import store from './redux/reduxStore'
+import store, {AppStateType} from './redux/reduxStore'
 import {Box, Stack} from '@mui/material'
 import AllMainComponentsWithRouter from './components/AllMainComponentsWithRouter'
 import BottomNav from './components/Nav/BottomNav'
 
 
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type MapDispatchType = {
+    initializeApp: () => void
+}
 
 
-class App extends Component {
+class App extends Component<MapPropsType & MapDispatchType> {
 
-    catchAllUnhandledErrors = (reason, promise) =>{
+    catchAllUnhandledErrors = (e: PromiseRejectionEvent) =>{
         alert('Some error occurred')
 
     }
@@ -35,31 +39,27 @@ class App extends Component {
         if (!this.props.initialized) {
             return <Preloader/>
         }
-
         return (
             <Box>
                 <HeaderContainer/>
                 <Stack direction={'row'} spacing={2} justifyContent={'space-between'}>
                     <Nav/>
-                    <React.Suspense fallback={<Preloader/>}>
-                        <AllMainComponentsWithRouter/>
-                    </React.Suspense>
+                    <AllMainComponentsWithRouter/>
                     <BottomNav />
                 </Stack>
-
             </Box>
         )
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
     initialized: state.app.initialized
 })
 
 
 let AppContainer = connect(mapStateToProps, {initializeApp})(App)
 
-let SocialNetworkApp = (props) => {
+let SocialNetworkApp: React.FC = () => {
     return <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Provider store={store}>
             <AppContainer/>

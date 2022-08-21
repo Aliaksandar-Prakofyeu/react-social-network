@@ -49,7 +49,7 @@ const dialogsReducer = (state = initialState, action: ActionTypes): InitialState
 }
 
 export const actions = {
-    addMessageActionCreator: (newMessageText: string) => ({
+    addMessage: (newMessageText: string) => ({
         type: 'RSN/DIALOGS/SEND_MESSAGE',
         newMessageText
     } as const)

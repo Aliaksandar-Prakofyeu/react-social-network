@@ -9,6 +9,7 @@ import {compose} from 'redux'
 import {ProfileType} from '../../Types/types'
 import {AppStateType} from '../../redux/reduxStore'
 
+
 type MapStateType = {
     profile: ProfileType
     status: string
@@ -18,12 +19,11 @@ type MapStateType = {
 
 type MapDispatchType = {
     getProfile: (userId: number) => void
-    getStatus:  (userId: number) => void
+    getStatus: (userId: number) => void
     updateStatus: (status: string) => void
     updatePhoto: (photo: File) => void
-    updateProfile: (formData: any, setStatus: any, setSubmitting: any, goToViewMode: any) => void
+    updateProfile: (formData: ProfileType, setStatus: any, setSubmitting: any, goToViewMode: any) => void
     router: any
-
 }
 
 type ProfileContainerType = MapStateType & MapDispatchType
@@ -31,7 +31,7 @@ type ProfileContainerType = MapStateType & MapDispatchType
 class ProfileContainer extends React.Component<ProfileContainerType> {
 
     refreshProfile() {
-        let userId = this.props.router.params.userId
+        let userId: number | null = this.props.router.params.userId
         if (!userId) {
             userId = this.props.signedUserId
         }
@@ -87,7 +87,7 @@ function withRouter(Component: any) {
     return ComponentWithRouterProp
 }
 
-export default compose(
+export default compose(withRouter,
     connect(mapStateToProps, {getProfile, getStatus, updateStatus, updatePhoto, updateProfile}),
-    withRouter, withAuthRedirect)
+    withAuthRedirect)
 (ProfileContainer)
