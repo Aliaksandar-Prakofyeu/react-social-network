@@ -8,7 +8,7 @@ const Nav = () => {
             <Box position={'fixed'}>
                 <List>
                     <ListItem>
-                        <ListItemButton component={'a'} href={'/react-social-network/profile'}>
+                        <ListItemButton component={'a'} href={'/react-social-network/#/profile'}>
                             <ListItemIcon>
                                 <Person/>
                             </ListItemIcon>
@@ -16,7 +16,7 @@ const Nav = () => {
                         </ListItemButton>
                     </ListItem>
                     <ListItem>
-                        <ListItemButton component={'a'} href={'/react-social-network/users'}>
+                        <ListItemButton component={'a'} href={'/react-social-network/#/users'}>
                             <ListItemIcon>
                                 <Group/>
                             </ListItemIcon>
@@ -24,7 +24,7 @@ const Nav = () => {
                         </ListItemButton>
                     </ListItem>
                     <ListItem>
-                        <ListItemButton component={'a'} href={'/react-social-network/dialogs'}>
+                        <ListItemButton component={'a'} href={'/react-social-network/#/dialogs'}>
                             <ListItemIcon>
                                 <Message/>
                             </ListItemIcon>
@@ -32,7 +32,7 @@ const Nav = () => {
                         </ListItemButton>
                     </ListItem>
                     <ListItem>
-                        <ListItemButton component={'a'} href={'/react-social-network/news'}>
+                        <ListItemButton component={'a'} href={'/react-social-network/#/news'}>
                             <ListItemIcon>
                                 <Feed/>
                             </ListItemIcon>
@@ -40,7 +40,7 @@ const Nav = () => {
                         </ListItemButton>
                     </ListItem>
                     <ListItem>
-                        <ListItemButton component={'a'} href={'/react-social-network/music'}>
+                        <ListItemButton component={'a'} href={'/react-social-network/#/music'}>
                             <ListItemIcon>
                                 <MusicNote/>
                             </ListItemIcon>
@@ -48,7 +48,7 @@ const Nav = () => {
                         </ListItemButton>
                     </ListItem>
                     <ListItem>
-                        <ListItemButton component={'a'} href={'/react-social-network/settings'}>
+                        <ListItemButton component={'a'} href={'/react-social-network/#/settings'}>
                             <ListItemIcon>
                                 <Settings/>
                             </ListItemIcon>

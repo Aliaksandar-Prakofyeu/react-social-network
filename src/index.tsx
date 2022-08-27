@@ -1,11 +1,15 @@
-import "./index.css";
-import reportWebVitals from "./reportWebVitals";
-import ReactDOM from "react-dom";
-import React from "react";
-import SocialNetworkApp from "./App";
-import {ThemeProvider} from "@mui/material";
-import {theme} from "./utils/theme";
+import './index.css'
+import reportWebVitals from './reportWebVitals'
+import ReactDOM from 'react-dom/client'
+import React from 'react'
+import App from './App'
+import {ThemeProvider} from '@mui/material'
+import {theme} from './utils/theme'
+import {Provider} from 'react-redux'
+import {HashRouter} from 'react-router-dom'
+import store from './redux/reduxStore'
 
+/*
 ReactDOM.render(<ThemeProvider theme={theme}>
     <SocialNetworkApp/>
 </ThemeProvider>, document.getElementById('root'));
@@ -14,3 +18,21 @@ ReactDOM.render(<ThemeProvider theme={theme}>
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+*/
+
+
+const root = ReactDOM.createRoot(
+    document.getElementById('root') as HTMLElement)
+
+root.render(
+    <HashRouter>
+        <Provider store={store}>
+            <ThemeProvider theme={theme}>
+                <App/>
+            </ThemeProvider>
+        </Provider>
+    </HashRouter>
+
+)
+
+reportWebVitals()

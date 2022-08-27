@@ -18,11 +18,11 @@ const MyPosts: React.FC<PropsType> = (props) => {
 
     return (
         <Stack direction={'column'} spacing={2}>
-            <Typography variant={'h5'}>My posts</Typography>
+            <Typography variant={'h5'} fontWeight='bold'>Posts</Typography>
             <NewPostForm addPost={props.addPost}/>
-            <div>
+            <Stack direction='column-reverse'>
                 {postsElements}
-            </div>
+            </Stack>
         </Stack>
     )
 }

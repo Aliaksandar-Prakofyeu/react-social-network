@@ -1,12 +1,11 @@
 import './App.css'
 import Nav from './components/Nav/Nav'
-import {BrowserRouter} from 'react-router-dom'
 import HeaderContainer from './components/Header/HeaderСontainer'
 import React, {Component} from 'react'
-import {connect, Provider} from 'react-redux'
+import {connect} from 'react-redux'
 import {initializeApp} from './redux/appReducer'
 import Preloader from './components/common/Preloader/Preloader'
-import store, {AppStateType} from './redux/reduxStore'
+import {AppStateType} from './redux/reduxStore'
 import {Box, Stack} from '@mui/material'
 import AllMainComponentsWithRouter from './components/AllMainComponentsWithRouter'
 import BottomNav from './components/Nav/BottomNav'
@@ -57,14 +56,7 @@ const mapStateToProps = (state: AppStateType) => ({
 })
 
 
-let AppContainer = connect(mapStateToProps, {initializeApp})(App)
+export default connect(mapStateToProps, {initializeApp})(App)
 
-let SocialNetworkApp: React.FC = () => {
-    return <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <Provider store={store}>
-            <AppContainer/>
-        </Provider>
-    </BrowserRouter>
-}
 
-export default SocialNetworkApp
+

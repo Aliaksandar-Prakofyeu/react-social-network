@@ -1,4 +1,4 @@
-import {UserType} from "../Types/types";
+import {UserType} from '../Types/types'
 
 export type ApiResponseType<Data = {}, ResultCode = ResultCodesEnum> = {
     resultCode: ResultCode
@@ -10,6 +10,7 @@ export enum ResultCodesEnum {
     Success = 0,
     Error = 1
 }
+
 export enum ResultCodeCaptchaEnum {
     CaptchaIsRequired = 10
 }

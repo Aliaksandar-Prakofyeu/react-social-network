@@ -30,7 +30,7 @@ const ProfileInfo: React.FC<ProfileInfoType> = ({isOwner, profile, status, updat
     }
     return (
         <Box>
-            <Stack direction={'row'} spacing={2} alignItems={'center'} sx={{marginTop: '20px', marginBottom: '20px'}}>
+            <Stack direction={'row'} spacing={2} alignItems={'top'} sx={{marginTop: '20px', marginBottom: '20px'}}>
                 <Box flex={1}>
                     {isOwner ? <IconButton  sx={{width:'150px'}} color='primary' aria-label='upload picture' component='label'>
                     <input hidden type={'file'} onChange={onMainPhotoSelected}/>
@@ -44,15 +44,16 @@ const ProfileInfo: React.FC<ProfileInfoType> = ({isOwner, profile, status, updat
                 <Stack direction={'column'} flex={5} spacing={1} alignItems={'left'}>
                     <Typography variant={'h6'}>{profile.fullName}</Typography>
                     <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
+                    {editMode ?
+                        <ProfileDataForm profile={profile} handleSubmit={handleSubmit} editMode={editMode} goToViewMode={() => {
+                            setEditMode(false)
+                        }}/> :
+                        <ProfileData profile={profile} goToEditMode={() => {
+                            setEditMode(true)
+                        }} isOwner={isOwner}/>}
                 </Stack>
             </Stack>
-            {editMode ?
-                <ProfileDataForm profile={profile} handleSubmit={handleSubmit} editMode={editMode} goToViewMode={() => {
-                    setEditMode(false)
-                }}/> :
-                <ProfileData profile={profile} goToEditMode={() => {
-                    setEditMode(true)
-                }} isOwner={isOwner}/>}
+
         </Box>
     )
 }

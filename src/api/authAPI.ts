@@ -1,5 +1,5 @@
-import {instance} from "./api";
-import {ApiResponseType, GetAuthResponseType, LogInResponseType} from "./apiTypes";
+import {instance} from './api'
+import {ApiResponseType, GetAuthResponseType, LogInResponseType} from './apiTypes'
 
 
 export const authAPI = {

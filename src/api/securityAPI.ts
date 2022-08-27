@@ -1,5 +1,5 @@
-import {instance} from "./api";
-import {GetCaptchaResponseType} from "./apiTypes";
+import {instance} from './api'
+import {GetCaptchaResponseType} from './apiTypes'
 
 
 export const securityAPI = {

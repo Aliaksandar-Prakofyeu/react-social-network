@@ -7,10 +7,12 @@
     "n m";
     grid-template-rows: 60px 1fr;
     grid-template-columns: 2fr 10fr;
+    overflow: hidden;
     /*grid-gap: 10px;*/
 }
 
 .app-wrapper-main {
+    overflow-y: scroll;
     grid-area: m;
     background-color: #DAD9DE;
 }
