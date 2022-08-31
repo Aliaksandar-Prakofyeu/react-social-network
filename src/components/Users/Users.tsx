@@ -13,6 +13,7 @@ import {
     getTotalUsersCount,
     getUsers
 } from '../../redux/usersSelectors'
+import {useSearchParams} from 'react-router-dom'
 
 const Users: React.FC = () => {
 
@@ -23,15 +24,53 @@ const Users: React.FC = () => {
     const currentPage = useSelector(getCurrentPage)
     const followingInProgress = useSelector(getFollowingInProgress)
 
-
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(getUsersData(currentPage, pageSize, filter))
-    }, [currentPage, dispatch, filter, pageSize])
+    const [searchParams, setSearchParams] = useSearchParams()
 
-    const onPageChanged = (currentPage: number) => {
-        dispatch(getUsersData(currentPage, pageSize, filter))
+    useEffect(() => {
+        const result: any = {}
+        // @ts-ignore
+        for (const [key, value] of searchParams.entries()) {
+            let value2: any = +value
+            if (isNaN(value2)) {
+                value2 = value
+            }
+            if (value === 'true') {
+                value2 = true
+            } else if (value === 'false') {
+                value2 = false
+            }
+            result[key] = value2
+        }
+
+        let actualPage = result.page || currentPage
+        let term = result.term || filter.term
+        let friend = result.friend || filter.friend
+
+        if (result.friend === false) {
+            friend = result.friend
+        }
+
+        const actualFilter = {friend, term}
+
+        dispatch(getUsersData(actualPage, pageSize, actualFilter))
+    }, [])
+
+    useEffect(() => {
+        const term = filter.term
+        const friend = filter.friend
+
+        let urlQuery =
+            (term === '' ? '' : `&term=${term}`)
+            + (friend === null ? '' : `&friend=${friend}`)
+            + (currentPage === 1 ? '' : `&page=${currentPage}`)
+
+        setSearchParams(urlQuery)
+    }, [filter, currentPage])
+
+    const onPageChanged = (pageNumber: number) => {
+        dispatch(getUsersData(pageNumber, pageSize, filter))
     }
 
     const onFilterChanged = (filter: FilterType) => {
@@ -47,16 +86,16 @@ const Users: React.FC = () => {
     }
 
     return <Stack direction={'column'} spacing={2}>
-        <SearchBar onFilterChanged={onFilterChanged}/>
-        <Paginator totalItemsCount={totalUsersCount} pageSize={pageSize}
+            <SearchBar onFilterChanged={onFilterChanged}/>
+            <Paginator totalItemsCount={totalUsersCount} pageSize={pageSize}
                    onPageChanged={onPageChanged}/>
-        <Box>
+            <Box>
             {users.map(u => <User user={u}
                                   followingInProgress={followingInProgress}
                                   follow={follow}
                                   unfollow={unfollow} key={u.id}/>
             )}
-        </Box>
+            </Box>
     </Stack>
 }
 

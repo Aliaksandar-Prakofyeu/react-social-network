@@ -3,6 +3,8 @@ import {Box, IconButton, InputAdornment, MenuItem, Select, Stack, TextField} fro
 import {Search} from '@mui/icons-material'
 import React from 'react'
 import {FilterType} from '../../redux/usersReducer'
+import {useSelector} from 'react-redux'
+import {getFilter} from '../../redux/usersSelectors'
 
 type PropsType = {
     onFilterChanged: (f: FilterType) => void
@@ -12,11 +14,13 @@ const SearchBar: React.FC<PropsType> = (props) => {
 
     const {onFilterChanged} = props
 
+    const filter = useSelector(getFilter)
+
     const formik = useFormik({
         initialValues: {
             filter: {
-                term: '',
-                friend: null
+                term: filter.term,
+                friend: filter.friend
             }
         },
         onSubmit: (values) => {
@@ -30,6 +34,7 @@ const SearchBar: React.FC<PropsType> = (props) => {
                 <Box flex={2}>
                     <TextField placeholder={'Search'}
                                name={'filter.term'}
+                               value={formik.values.filter.term}
                                onChange={formik.handleChange}
                                fullWidth InputProps={{
                         endAdornment: <InputAdornment position={'end'}>
