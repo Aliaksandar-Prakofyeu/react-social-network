@@ -1,44 +1,30 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {logIn, logOut} from '../../redux/authReducer'
+import {useDispatch, useSelector} from 'react-redux'
+import {logIn} from '../../redux/authReducer'
 import {Navigate} from 'react-router'
 import LoginForm from './LoginForm'
 import {Box} from '@mui/material'
-import {AppStateType} from '../../redux/reduxStore'
 import {LoginFormDataType} from '../../Types/types'
+import {getAuth, getCaptchaUrl} from '../../redux/authSelectors'
 
 
-type MapStateType = {
-    captchaUrl: string | null
-    isAuth: boolean
-}
+export  const Login: React.FC = () => {
+    const captchaUrl = useSelector(getCaptchaUrl)
+    const isAuth = useSelector(getAuth)
 
-type MapDispatchType = {
-    logIn: (email: string, password: string, rememberMe: boolean, captcha: any, setStatus: any, setSubmitting: any) => void
-    logOut: () => void
-}
+    const dispatch = useDispatch()
 
-
-type LoginType =  MapStateType & MapDispatchType
-
-
-
-const Login: React.FC<LoginType> = (props) => {
     const handleSubmit = (formData: LoginFormDataType, setStatus: any, setSubmitting: any) => {
-        props.logIn(formData.email, formData.password, formData.rememberMe , formData.captcha,setStatus , setSubmitting );
+        dispatch(logIn(formData.email, formData.password, formData.rememberMe, formData.captcha, setStatus, setSubmitting))
     }
-    if (props.isAuth) {
+    if (isAuth) {
         return (<Navigate to={`/profile`}/>)
     }
-    return(
+    return (
         <Box>
-            <LoginForm handleSubmit={handleSubmit} captchaUrl={props.captchaUrl}/>
+            <LoginForm handleSubmit={handleSubmit} captchaUrl={captchaUrl}/>
         </Box>
-        )
+    )
 }
-const mapStateToProps = (state: AppStateType): MapStateType => ({
-    captchaUrl: state.auth.captchaUrl,
-    isAuth: state.auth.isAuth
-})
 
-export default connect<MapStateType, MapDispatchType, {} , AppStateType>(mapStateToProps, {logIn, logOut})(Login)
+
